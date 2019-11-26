@@ -2,35 +2,83 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" type="text/css" href="style.css">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	
+	 <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+
 
 	<title>Navigation Menu</title>
 </head>
 <body>
-<div class="main_navbar d-flex justify-content-center">
-	<nav class="navbar navbar-light bg-info flex-fill">
-		<div class="navbar_left">
-			<a class="navbar-brand text-white" href="#">
-				<img src="homepage.svg" width="30" height="30" class="d-inline-block align-top text-primary" alt="Home">
-				Homepage
-  			</a>
-		</div>
-		<div class="navbar_center">
-			<form class="form-inline">
-    			<input class="form-control mr-sm-2" id="searchInput"  placeholder="Tìm kiếm">
-    			<button class="btn btn-danger my-2 my-sm-0" >Tìm kiếm</button>
-  			</form>
-		</div>
-  		
-  		<div class="narbar-right">
-				<button class="btn btn-danger my-2 my-sm-0" >Watch List</button>
-				<button class="btn btn-danger my-2 my-sm-0" id="btn_acc" >Tài khoản</button>
+	<div class="main_navbar d-flex justify-content-center">
+		<nav class="navbar navbar-light bg-info flex-fill">
+			<div class="navbar_left">
+				<a class="navbar-brand text-white" href="#">
+						<img src="homepage.svg" width="30" height="30" class="d-inline-block align-top text-primary" alt="Home">
+					Homepage
+  				</a>
 			</div>
-  		</div>
-	</nav>
-</div>
+			<div class="navbar_center">
+				<form class="form-inline">
+    				<input class="form-control  mr-sm-2 " id="searchInput"  placeholder="Tìm kiếm">
+    				<button class="btn btn-danger my-2 my-sm-0" >Tìm kiếm</button>
+  				</form>
+			</div>
+  		
+  			<div class="narbar-right d-inline-flex flex-row">
+  				<button type="button" class="btn btn-primary my-0 my-sm-1 mr-sm-1 bg-dark">Thông báo <span class="badge badge-light">4</span></button>
+  				<button class="btn btn-danger my-0 my-sm-1 mr-sm-1" >Watch List &nbsp<img src="WatchList.svg" alt="" class="rounded float-right" width="25" height="25"></button>
+  				<div class="btn-group">
+  					<button type="button" class="btn btn-danger my-0 my-sm-1 rounded float-right dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tài khoản &nbsp<img src="personIcon.svg" alt="" width="25" height="25"></button>
+  					<div class="dropdown-menu">
+  						<a class="dropdown-item" href="#">Đăng nhập</a>
+						<a class="dropdown-item" href="#">Đăng kí</a>
+    				</div>
+    			</div>
+  			</div>
+		</nav>
+	</div>
 
+	<div class="category" id="menu">
+		<ul>
+			<li>
+				<a href="">Đồ Điện</a>
+				<ul class="sub-menu">
+					<li><a href="">Tủ Lạnh</a></li>
+					<li><a href="">Máy Lạnh</a></li>
+					<li><a href="">Bếp</a></li>
+				</ul>
+			</li>
+			<li>
+				<a href="">Đồ Công Nghệ</a>
+				<ul class="sub-menu">
+					<li><a href="">Smarthphone</a></li>
+					<li><a href="">Linh kiện PC</a></li>
+					<li><a href="">Laptop</a></li>
+					<li><a href="">Máy chơi game</a></li>
+				</ul>
+			</li>
+			<li>
+				<a href="">Thời Trang</a>
+				<ul class="sub-menu">
+					<li><a href="">Nam</a></li>
+					<li><a href="">Nữ</a></li>
+					<li><a href="">Trẻ em</a></li>
+				</ul>
+			</li>
+			<li>
+				<a href="">Xe cộ</a>
+				<ul class="sub-menu">
+					<li><a href="">Xe máy</a></li>
+					<li><a href="">Motor</a></li>
+					<li><a href="">Oto</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>
