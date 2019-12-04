@@ -1,0 +1,28 @@
+{
+  "name": "auction-floor",
+  "version": "1.0.0",
+  "description": "Bài tập lớn Lập trình ứng dụng web",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
+    "express-handlebars": "^3.1.0",
+    "handlebars": "^4.5.3",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kyujin990/2019-2020-HK1-LTUDW.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kyujin990/2019-2020-HK1-LTUDW/issues"
+  },
+  "homepage": "https://github.com/kyujin990/2019-2020-HK1-LTUDW#readme"
+}
