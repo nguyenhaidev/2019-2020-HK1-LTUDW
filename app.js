@@ -26,6 +26,10 @@ app.get('/signup', function(req, res) {
     })
 });
 
+app.get('/watchlist', function(req, res) {
+    res.render('watchlist')
+})
+
 app.use(express.static(path.join(__dirname, "/public")));
 
 console.log(__dirname + "/public")
