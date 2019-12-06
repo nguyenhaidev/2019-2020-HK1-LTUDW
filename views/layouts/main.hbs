@@ -9,7 +9,7 @@
 </head>
 
 <body>
-	<div class="main_navbar d-flex justify-content-center">
+	{{!-- <div class="main_navbar d-flex justify-content-center">
 		<nav class="navbar navbar-light bg-info flex-fill">
 			<div class="navbar_left">
 				<a class="navbar-brand text-white" href="/">
@@ -26,14 +26,11 @@
 			</div>
 
 			<div class="narbar-right d-inline-flex flex-row">
-				<button type="button" class="btn btn-primary my-0 my-sm-1 mr-sm-1 bg-dark">Thông báo <span
-						class="badge badge-light">4</span></button>
+				<button type="button" class="btn btn-primary my-0 my-sm-1 mr-sm-1 bg-dark">Thông báo <spanclass="badge badge-light">4</span></button>
 				<a href="/watchlist"><button class="btn btn-danger my-0 my-sm-1 mr-sm-1">Watch List &nbsp<img src="assets/WatchList.svg" alt=""
 						class="rounded float-right" width="25" height="25"></button></a>
 				<div class="btn-group">
-					<button type="button" class="btn btn-danger my-0 my-sm-1 rounded float-right dropdown"
-						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tài khoản &nbsp<img
-							src="assets/personIcon.svg" alt="" width="25" height="25"></button>
+					<button type="button" class="btn btn-danger my-0 my-sm-1 rounded float-right dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tài khoản &nbsp<img src="assets/personIcon.svg" alt="" width="25" height="25"></button>
 					<div class="dropdown-menu">
 						<a class="dropdown-item" href="/signin">Đăng nhập</a>
 						<a class="dropdown-item" href="/signup">Đăng kí</a>
@@ -41,7 +38,62 @@
 				</div>
 			</div>
 		</nav>
-	</div>
+	</div> --}}
+
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark d-flex justify-content-between">
+			<a class="navbar-brand font-weight-bolder text-light navbar-right" href="/">BiOWe</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target = "#navbarSupportedContent">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse ml-auto" id="navbarSupportedContent">
+				<ul class="navbar-nav mx-auto font-weight-bolder">
+					<li class="nav-tiem active">
+						<a href="/" class="nav-link text-light">Trang Chủ</a>
+					</li>
+					<li class="nav-item active">
+						<a href="/" class="nav-link text-light">Thông Tin</a>
+					</li>
+					<li class="nav-item active">
+						<a href="/" class="nav-link text-light">Liên Hệ</a>
+					</li>	
+					<li class="nav-item active mr-sm-2">
+						<a href="/" class="nav-link text-light">Hỗ Trợ</a>
+					</li>				
+				</ul>
+
+			<form class="navbar-form-inline navbar-branch d-flex flex-nowrap flex-grow-1 mr-auto">
+				<input type="search" class="form-control mr-sm-2" placeholder="Tìm kiếm..." aria-label="Search">
+				<button class="btn btn-light my-sm-0 mr-sm-5" type="submit">Tìm</button>
+			</form>
+			
+			<button type="button" class="btn btn-info my-0 my-sm-0 mr-sm-1" style="height: 40px; width=150px">
+				Thông báo <span class="badge badge-light ">4</span>
+			</button>
+
+			<div class="d-flex flex-nowrap">
+				<ul class="navbar-nav mx-auto">
+					<li class="nav-item active">
+						<a href="/watchlist">
+							<button class="btn btn-light my-0 my-sm-0 mr-sm-1" style="height: 40px; width=150px">
+								Watch List &nbsp<img src="assets/WatchList.svg" alt="" class="rounded float-right" width="25" height="25">
+							</button>
+						</a>
+					</li>
+					<li class="nav-item active">
+						<div class="btn-group">
+							<button type="button" class="btn btn-light my-0 my-sm-0  rounded float-right dropdown" style="height: 40px; width=155px" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tài khoản &nbsp<img src="assets/personIcon.svg" alt="" width="25" height="25"></button>
+								<div class="dropdown-menu">
+									<a class="dropdown-item" href="/signin">Đăng nhập</a>
+									<a class="dropdown-item" href="/signup">Đăng kí</a>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+				
+				
+			</div>
+	</nav>
 
 	<div class="category" id="menu">
 		<ul>
