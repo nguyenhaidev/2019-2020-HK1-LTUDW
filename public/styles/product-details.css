@@ -1,0 +1,33 @@
+.prd-small-text {
+    font-size: 8pt;
+}
+
+.prd-normal-text {
+    font-size: 10pt;
+}
+
+.prd-medium-text {
+    font-size: 12pt;
+}
+
+.prd-large-text {
+    font-size: 14pt;
+}
+
+.prd-dark-grey-text {
+    color: #555555;
+}
+
+.prd-disable-text-decoration {
+    color: inherit;
+    text-decoration: none;
+}
+
+.prd-disable-text-decoration:hover {
+    color:inherit; 
+    text-decoration:none;
+}
+
+.prd-att-background {
+    background: #FAFAFA;
+}

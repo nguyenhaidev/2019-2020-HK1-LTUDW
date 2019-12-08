@@ -8,6 +8,8 @@ app.engine('hbs', exphbs({
     defaultLayout: 'main.hbs'
 }));
 
+app.use(express.static(path.join(__dirname, "/public")));
+
 app.set('view engine', 'hbs');
 
 app.get('/', function(req, res) {
@@ -15,24 +17,24 @@ app.get('/', function(req, res) {
 });
 
 app.get('/signin', function(req, res) {
-    res.render('signin', {
-        layout: 'sub.hbs'
-    })
+    res.render('v-account/signin')
 });
 
+app.get('/products', function(req, res) {
+    res.render('v-product/product')
+})
+
+app.get('/product/1', function(req, res) {
+    res.render('v-product/product-details')
+})
+
 app.get('/signup', function(req, res) {
-    res.render('signup', {
-        layout: 'sub.hbs'
-    })
+    res.render('v-account/signup')
 });
 
 app.get('/watchlist', function(req, res) {
-    res.render('watchlist')
+    res.render('v-product/watchlist')
 })
-
-app.use(express.static(path.join(__dirname, "/public")));
-
-console.log(__dirname + "/public")
 
 app.use(function (req, res) {
     res.render('404', {
