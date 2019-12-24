@@ -1,40 +1,28 @@
 const express = require('express');
+const mysql = require('mysql')
 const exphbs = require('express-handlebars');
-const path = require('path');
+
 require('express-async-errors');
+
+const connection = mysql.createConnection({
+    host: 'localhost',
+    port: 3306,
+    user: 'auction',
+    password: 'auction',
+    database: 'auction'
+})
+
+connection.connect();
+connection.end();
 
 const app = express();
 app.engine('hbs', exphbs({
     defaultLayout: 'main.hbs'
 }));
 
-app.use(express.static(path.join(__dirname, "/public")));
+app.use('/public', express.static('public'));
 
 app.set('view engine', 'hbs');
-
-app.get('/', function(req, res) {
-    res.render('home')
-});
-
-app.get('/signin', function(req, res) {
-    res.render('v-account/signin')
-});
-
-app.get('/products', function(req, res) {
-    res.render('v-product/product')
-})
-
-app.get('/product/1', function(req, res) {
-    res.render('v-product/product-details')
-})
-
-app.get('/signup', function(req, res) {
-    res.render('v-account/signup')
-});
-
-app.get('/watchlist', function(req, res) {
-    res.render('v-product/watchlist')
-})
 
 app.use(function (req, res) {
     res.render('404', {
