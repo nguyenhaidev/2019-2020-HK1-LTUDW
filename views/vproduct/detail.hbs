@@ -4,16 +4,16 @@
             <div class="row">
                 <div class="col-md-6 mb-4 border-right">
                     <img class="img-fluid"
-                        src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/14.jpg" alt="" />
+                        src="/public/upload/{{product.product_id}}/main.jpg" alt={{product.product_name}} />
                 </div>
                 <div class="col-md-6 mb-4 text-left">
                     <div class="p-4">
-                        <h3 class="mb-3">Tivi thông minh Samsung LED 32-inch - Hàng chính hãng</h3>
+                        <h3 class="mb-3">{{product.product_name}}</h3>
                         <div class="mb-3">
                             <span class="mr-3">Rating here <a href="/" class="prd-small-text">(Xem 223 đánh
                                     giá)</a></span>
                             <a href="/">
-                                <span class="badge badge-pill badge-primary mr-1 shadow">Điện tử</span>
+                                <span class="badge badge-pill badge-primary mr-1 shadow">{{category.category_title}}</span>
                             </a>
                             <a href="/">
                                 <span class="badge badge-pill badge-danger mr-1 shadow">Mới</span>
@@ -24,14 +24,12 @@
                         </div>
                         <p class="lead">
                             <span class="text-strike mr-3">
-                                <del>4.000.000 vnd</del>
+                                <del>{{product.highest_price}} vnd</del>
                             </span>
-                            <span class="">6.000.000 vnd</span>
+                            <span class="">{{product.highest_price}} vnd</span>
                         </p>
                         <p class="mb-3 font-weight-bold prd-large-text">Mô tả:</p>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam, explicabo quas. Dolores
-                            perferendis aliquid illum beatae at necessitatibus voluptatibus est eum vel voluptas itaque,
-                            omnis ad blanditiis nulla quam incidunt.</p>
+                        <p>{{product.description}}</p>
 
                         <form class="d-flex justify-content-left">
                             <input type="number" value="6100000" aria-label="Search" class="form-control w-25 mr-2" />

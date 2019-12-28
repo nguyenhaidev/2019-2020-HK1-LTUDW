@@ -147,25 +147,13 @@ CREATE TABLE `af_product` (
   `highest_price` decimal(10,0) NOT NULL,
   `purchase_price` decimal(10,0) NOT NULL,
   `won_bidder` int(11) DEFAULT NULL,
-  `featured_image` int(11) DEFAULT NULL,
-  `sub_image_1` int(11) DEFAULT NULL,
-  `sub_image_2` int(11) DEFAULT NULL,
-  `sub_image_3` int(11) DEFAULT NULL,
   PRIMARY KEY (`product_id`),
   KEY `category_id` (`category_id`),
   KEY `owner_id` (`owner_id`),
   KEY `highest_bidder` (`highest_bidder`),
-  KEY `featured_image` (`featured_image`),
-  KEY `sub_image_1` (`sub_image_1`),
-  KEY `sub_image_2` (`sub_image_2`),
-  KEY `sub_image_3` (`sub_image_3`),
   CONSTRAINT `af_product_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `af_category` (`category_id`),
   CONSTRAINT `af_product_ibfk_2` FOREIGN KEY (`owner_id`) REFERENCES `af_account` (`account_id`),
-  CONSTRAINT `af_product_ibfk_3` FOREIGN KEY (`highest_bidder`) REFERENCES `af_account` (`account_id`),
-  CONSTRAINT `af_product_ibfk_4` FOREIGN KEY (`featured_image`) REFERENCES `af_image` (`image_id`),
-  CONSTRAINT `af_product_ibfk_5` FOREIGN KEY (`sub_image_1`) REFERENCES `af_image` (`image_id`),
-  CONSTRAINT `af_product_ibfk_6` FOREIGN KEY (`sub_image_2`) REFERENCES `af_image` (`image_id`),
-  CONSTRAINT `af_product_ibfk_7` FOREIGN KEY (`sub_image_3`) REFERENCES `af_image` (`image_id`)
+  CONSTRAINT `af_product_ibfk_3` FOREIGN KEY (`highest_bidder`) REFERENCES `af_account` (`account_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

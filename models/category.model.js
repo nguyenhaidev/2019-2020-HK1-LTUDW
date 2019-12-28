@@ -1,6 +1,8 @@
-const db = require('../utils/db');
-const config = require('../config/default.json');
+db = require('../utils/db');
 
 module.exports = {
-    all: _ => db.load("SELECT * FROM af_category")
+    getAllCategories: _ => db.load(`SELECT * FROM af_category`),
+    getCategory: id => db.load(`SELECT * FROM af_category WHERE category_id = ${id}`),
+    addCategory: entity => db.insert(entity, `af_category`), 
+    delCategory: id => db.delete({category_id: id}, 'af_category')
 }
