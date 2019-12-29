@@ -1,7 +1,3 @@
-{{#sections 'css'}}
-
-{{/sections}}
-
 <div>
     <div class="mt-5 pt-4">
         <div class="container prd-dark-grey-text">
@@ -16,8 +12,7 @@
                         {{!-- <a href="/product/{{product.product_id}}" class="mb-3">Mã sản phẩm: {{product.product_id}}</a> --}}
                         <div class="mb-3">
                             <a href="/">
-                                <span
-                                    class="badge badge-pill badge-primary mr-1">{{category.category_title}}</span>
+                                <span class="badge badge-pill badge-primary mr-1">{{category.category_title}}</span>
                             </a>
                             <a href="/">
                                 <span class="badge badge-pill badge-danger mr-1">Mới</span>
@@ -32,17 +27,18 @@
                         <p class="mb-3 font-weight-bold prd-large-text">Mô tả:</p>
                         <p>{{product.tiny_desc}}</p>
 
-                        <form>
-                            <input type="number" value="{{increasePrice product.highest_price}}" aria-label="Search"
-                                class="form-control" />
+                        <form method="POST" action="">
+                            <input type="number" value="{{increasePrice product.highest_price}}" name="price"
+                                aria-label="Search" class="form-control" />
+                                <input type="number" value="{{increasePrice product.highest_price}}" name="asd"
+                                aria-label="Search" class="form-control" />
                             <div class="d-flex justify-content-left">
-                                <button class="btn btn-primary w-50 mr-1 mt-3 font-weight-bold" type="submit">Ra giá</button>
-                                <button class="btn btn-success w-50 ml-1 mt-3" type="submit">
+                                <button type="submit" class="btn btn-primary w-50 mr-1 mt-3 font-weight-bold">Ra giá</button>
+                                <button class="btn btn-success w-50 ml-1 mt-3">
                                     <p class="m-0 font-weight-bold">Mua ngay</p>
                                     <p class="m-0">{{formatPrice product.purchase_price}}</p>
                                 </button>
                             </div class="d-flex justify-content-left">
-
                         </form>
                     </div>
                 </div>

@@ -18,8 +18,8 @@ module.exports = {
         FROM af_history his
         JOIN  af_account acc ON acc.account_id = his.account_id
         WHERE his.product_id = ${id}
-        ORDER BY creation_date DESC`),
-    getPreviousPrice: id => db.load(`
-    `)
+        ORDER BY price DESC
+        LIMIT 10`),
+    addHistory: e => db.callPro(`sp_bid_product(${e.product_id}, ${e.account_id}, ${e.price})`)
 
 }
