@@ -2,6 +2,18 @@ const express = require('express');
 const app = express();
 require('express-async-errors');
 
+var express = require('express');
+var express_handlebars  = require('express-handlebars');
+var express_handlebars_sections = require('express-handlebars-sections');
+ 
+var app = express();
+ 
+app.engine('handlebars', express_handlebars({
+    section: express_handlebars_sections()  // CONFIGURE 'express_handlebars_sections'
+ 
+    // properties used by express-handlebars configuration ...
+}));
+
 app.use('/public', express.static('public'));
 
 require('./middlewares/view.mdw')(app);
