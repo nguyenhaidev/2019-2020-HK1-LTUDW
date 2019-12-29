@@ -1,39 +1,48 @@
+{{#sections 'css'}}
+
+{{/sections}}
+
 <div>
     <div class="mt-5 pt-4">
         <div class="container prd-dark-grey-text">
             <div class="row">
-                <div class="col-md-6 mb-4 border-right">
-                    <img class="img-fluid"
-                        src="/public/upload/{{product.product_id}}/main.jpg" alt={{product.product_name}} />
+                <div class="col-md-7 mb-4 border-right">
+                    <img class="img-fluid" src="/public/upload/{{product.product_id}}/main.jpg"
+                        alt={{product.product_name}} />
                 </div>
-                <div class="col-md-6 mb-4 text-left">
+                <div class="col-md-5 mb-4 text-left">
                     <div class="p-4">
-                        <h3 class="mb-3">{{product.product_name}}</h3>
+                        <h3>{{product.product_name}}</h3>
+                        {{!-- <a href="/product/{{product.product_id}}" class="mb-3">Mã sản phẩm: {{product.product_id}}</a> --}}
                         <div class="mb-3">
-                            <span class="mr-3">Rating here <a href="/" class="prd-small-text">(Xem 223 đánh
-                                    giá)</a></span>
                             <a href="/">
-                                <span class="badge badge-pill badge-primary mr-1 shadow">{{category.category_title}}</span>
+                                <span
+                                    class="badge badge-pill badge-primary mr-1">{{category.category_title}}</span>
                             </a>
                             <a href="/">
-                                <span class="badge badge-pill badge-danger mr-1 shadow">Mới</span>
+                                <span class="badge badge-pill badge-danger mr-1">Mới</span>
                             </a>
                             <a href="/">
-                                <span class="badge badge-pill badge-warning mr-1 shadow">Bán chạy</span>
+                                <span class="badge badge-pill badge-warning mr-1">Bán chạy</span>
                             </a>
                         </div>
-                        <p class="lead">
-                            <span class="text-strike mr-3">
-                                <del>{{product.highest_price}} vnd</del>
-                            </span>
-                            <span class="">{{product.highest_price}} vnd</span>
-                        </p>
-                        <p class="mb-3 font-weight-bold prd-large-text">Mô tả:</p>
-                        <p>{{product.description}}</p>
+                        <p class="font-weight-bold text-danger">
+                            {{formatPrice product.highest_price}}</p>
 
-                        <form class="d-flex justify-content-left">
-                            <input type="number" value="6100000" aria-label="Search" class="form-control w-25 mr-2" />
-                            <button class="btn btn-outline-primary w-50" type="submit">Ra giá</button>
+                        <p class="mb-3 font-weight-bold prd-large-text">Mô tả:</p>
+                        <p>{{product.tiny_desc}}</p>
+
+                        <form>
+                            <input type="number" value="{{increasePrice product.highest_price}}" aria-label="Search"
+                                class="form-control" />
+                            <div class="d-flex justify-content-left">
+                                <button class="btn btn-primary w-50 mr-1 mt-3 font-weight-bold" type="submit">Ra giá</button>
+                                <button class="btn btn-success w-50 ml-1 mt-3" type="submit">
+                                    <p class="m-0 font-weight-bold">Mua ngay</p>
+                                    <p class="m-0">{{formatPrice product.purchase_price}}</p>
+                                </button>
+                            </div class="d-flex justify-content-left">
+
                         </form>
                     </div>
                 </div>
@@ -55,16 +64,13 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {{#each this.history}}
                         <tr>
-                            <td>1/11/2019 10:43</td>
-                            <td>****Khoa</td>
-                            <td>6,000,000</td>
+                            <td>{{formatDate creation_date}}</td>
+                            <td>{{fullname}}</td>
+                            <td>{{formatPrice price}}</td>
                         </tr>
-                        <tr>
-                            <td>1/11/2019 9:43</td>
-                            <td>****Quang</td>
-                            <td>4,000,000</td>
-                        </tr>
+                        {{/each}}
                     </tbody>
                 </table>
             </div>

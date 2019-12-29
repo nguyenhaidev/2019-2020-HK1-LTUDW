@@ -8,9 +8,12 @@ console.log("routes/product.route");
 router.get('/:id', async function(req, res) {
     const prows = await productModel.getProduct(req.params.id);
     const crows = await catModel.getCategory(prows[0].category_id);
+    const history = await productModel.getHistory(req.params.id);
+    console.log(history)
     res.render('vproduct/detail.hbs', {
         product: prows[0],
-        category: crows[0]
+        category: crows[0],
+        history: history
     });
 });
 

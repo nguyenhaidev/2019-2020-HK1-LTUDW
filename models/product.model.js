@@ -13,4 +13,13 @@ module.exports = {
         FROM af_product p 
         JOIN af_account a ON a.account_id = p.owner_id`),
     addProduct: entity => db.insert(entity, 'af_product'),
+    getHistory: id => db.load(`
+        SELECT acc.fullname, his.price, his.creation_date
+        FROM af_history his
+        JOIN  af_account acc ON acc.account_id = his.account_id
+        WHERE his.product_id = ${id}
+        ORDER BY creation_date DESC`),
+    getPreviousPrice: id => db.load(`
+    `)
+
 }
