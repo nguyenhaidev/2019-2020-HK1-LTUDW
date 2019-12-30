@@ -20,6 +20,6 @@ module.exports = {
         WHERE his.product_id = ${id}
         ORDER BY price DESC
         LIMIT 10`),
-    addHistory: e => db.callPro(`sp_bid_product(${e.product_id}, ${e.account_id}, ${e.price})`)
-
+    addHistory: e => db.callPro(`sp_bid_product(${e.product_id}, ${e.account_id}, ${e.price})`),
+    purchase: e => db.callPro(`sp_purchase(${e.product_id}, ${e.account_id})`)
 }
