@@ -17,18 +17,28 @@ router.get('/:id', async function(req, res) {
     });
 });
 
-router.post('/:id', async function(req, res) {
-    // console.log(req.params)
-    // console.log(req.body)
+router.post('/add', async function(req, res) {
+    console.log(req.body)
 
     const entity = {
         account_id: 1,
-        product_id: 1,
+        product_id: req.body.product_id,
         price: req.body.price
     };
 
-    const rs = await productModel.addHistory(entity);
-    res.redirect(`/product/${req.params.id}`)
+    await productModel.addHistory(entity);
+    res.redirect(`/product/${req.body.product_id}`)
+})
+
+router.post('/purchase', async function(req, res) {
+    console.log(req.body)
+
+    const entity = {
+        account_id: 1,
+        product_id: req.body.product_id
+    };
+    await productModel.purchase(entity);
+    res.redirect(`/product/${req.body.product_id}`)
 })
 
 module.exports = router;
