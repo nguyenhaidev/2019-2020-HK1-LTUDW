@@ -5,10 +5,21 @@ module.exports = {
         SELECT * 
         FROM af_account
         WHERE account_id = ${id}`),
-    getAccountByUsername: uname => db.load(`
-        SELECT * 
+    getAccountByUsername: async uname => {
+        const rows = await db.load(`
+            SELECT * 
+            FROM af_account
+            WHERE uname = '${uname}'`)
+
+        if (rows.length === 0)
+            return null;
+
+        return rows[0];
+    } ,
+    authenticate: (uname, passwd) => db.load(`
+        SELECT 1
         FROM af_account
-        WHERE uname = ${uname}`),
+        WHERE uname = ${uname} AND passwd = ${passwd}`),
     addAccount: entity => db.insert(entity, 'af_account'),
     upVote: id => db.load(`
         UPDATE af_account
