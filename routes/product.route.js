@@ -9,7 +9,12 @@ router.get('/:id', async function(req, res) {
     const prows = await productModel.getProduct(req.params.id);
     const crows = await catModel.getCategory(prows[0].category_id);
     const history = await productModel.getHistory(req.params.id);
-    // console.log(history)
+    
+    if (prows[0].won_bidder != null) {
+        res.render('vproduct/finish.hbs');
+        return;
+    }
+
     res.render('vproduct/detail.hbs', {
         product: prows[0],
         category: crows[0],

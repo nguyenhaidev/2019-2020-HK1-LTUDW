@@ -1,12 +1,43 @@
+{{#section 'js'}}
+<script type="text/javascript">
+    function changeImage(imgs) {
+        var expandImg = document.getElementById("expandedImg");
+        expandImg.src = imgs.src;
+        console.log(expandImg.src)
+    }
+</script>
+{{/section}}
+
+
 <div>
     <div class="mt-5 pt-4">
         <div class="container prd-dark-grey-text">
             <div class="row">
-                <div class="col-md-7 mb-4 border-right">
-                    <img class="img-fluid" src="/public/upload/{{product.product_id}}/main.jpg"
-                        alt={{product.product_name}} />
+                <div class="col-md-5 mb-4 border-right">
+                    <div class="w-100 d-flex">
+                        <img id="expandedImg" class="mx-auto" width="400" height="300"
+                            src="/public/upload/{{product.product_id}}/main.jpg" alt={{product.product_name}} />
+                    </div>
+                    <div class="row">
+                        <button class="col-md border m-2 bg-white">
+                            <img class="img-fluid m-2" src="/public/upload/{{product.product_id}}/main.jpg"
+                                onClick="changeImage(this);" />
+                        </button>
+                        <button class="col-md border m-2 bg-white">
+                            <img class="img-fluid m-2" src="/public/upload/{{product.product_id}}/sub1.jpg"
+                                onClick="changeImage(this);" />
+                        </button>
+                        <button class="col-md border m-2 bg-white">
+                            <img class="img-fluid m-2" src="/public/upload/{{product.product_id}}/sub2.jpg"
+                                onClick="changeImage(this);" />
+                        </button>
+                        <button class="col-md border m-2 bg-white">
+                            <img class="img-fluid m-2" src="/public/upload/{{product.product_id}}/sub3.jpg"
+                                onClick="changeImage(this);" />
+                        </button>
+                    </div>
                 </div>
-                <div class="col-md-5 mb-4 text-left">
+                <div class="col-md mb-4 text-left">
                     <div class="p-4">
                         <h3>{{product.product_name}}</h3>
                         {{!-- <a href="/product/{{product.product_id}}" class="mb-3">Mã sản phẩm: {{product.product_id}}</a> --}}
@@ -28,13 +59,20 @@
                         <p>{{product.tiny_desc}}</p>
 
                         <form method="POST" action="">
+                            <div class="md-form">
+                                <input type="number" id="form1" name="price" class="form-control"
+                                    value="{{increasePrice product.highest_price}}">
+                                <label for="form1">Giá sẽ ra</label>
+                            </div>
                             <input name="product_id" value="{{product.product_id}}" style="display: none;">
-                            <input type="number" value="{{increasePrice product.highest_price}}" name="price"
-                                aria-label="Search" class="form-control" />
                             <div class="d-flex justify-content-left">
-                                <button formaction="/product/add" type="submit" class="btn btn-primary w-50 mr-1 mt-3 font-weight-bold">Ra giá</button>
-                                <button formaction="/product/purchase" class="btn btn-success w-50 ml-1 mt-3">
-                                    <p class="m-0 font-weight-bold">Mua ngay</p>
+                                <button formaction="/product/add" type="submit" {{#if wasPurchased}}disabled{{/if}}
+                                    class="btn btn-sm btn-primary w-50 font-weight-bold" style="font-size: 12pt"><i
+                                        class="fa fa-gavel" aria-hidden="true"></i><span> Ra giá</span></button>
+                                <button formaction="/product/purchase" {{#if wasPurchased}}disabled{{/if}}
+                                    style="font-size: 12pt" class="btn btn-sm btn-success w-50 ">
+                                    <p class="m-0"><i class="fa fa-cart-plus" aria-hidden="true"></i><span> Mua
+                                            ngay</span></p>
                                     <p class="m-0">{{formatPrice product.purchase_price}}</p>
                                 </button>
                             </div class="d-flex justify-content-left">

@@ -47,7 +47,7 @@ router.post('/signup', async function (req, res) {
     req.body.passwd = bcrypt.hashSync(passwd, config.authentication.saltRounds);
     console.log(req.body.passwd);
     accountModel.addAccount(req.body);
-    res.render('/vaccount/signup.hbs');
+    res.render('vaccount/signup.hbs');
 })
 
 router.post('/logout', async function (req, res) {
@@ -56,9 +56,12 @@ router.post('/logout', async function (req, res) {
     res.redirect(req.headers.referer);
 })
 
-// const restrict = require('../middlewares/auth.mdw');
-// router.get('/profile', restrict, async function (req, res) {
-//   res.render('vwAccount/profile');
-// })
+router.get('/watchlist', async function(req, res) {
+    const result = await accountModel.watchlistDetails(1)
+    console.log(result)
+    res.render('vaccount/watchlist.hbs', {
+        details: result
+    });
+})
 
 module.exports = router;
