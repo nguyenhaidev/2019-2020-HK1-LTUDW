@@ -12,13 +12,6 @@ module.exports = function (app) {
         });
     });
 
-    app.get('/signin', function(req, res) {
-        res.render('vaccount/signin.hbs');
-    });
-
-    app.get('/signup', function(req, res) {
-        res.render('vaccount/signup.hbs');
-    })
-
+    app.use('/account', require('../routes/account.route'));
     app.use('/product', require('../routes/product.route'));
 }
