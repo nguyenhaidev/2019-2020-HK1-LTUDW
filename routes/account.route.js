@@ -5,7 +5,7 @@ const config = require('../config/default.json');
 const router = express.Router();
 
 router.get('/signin', function (req, res) {
-    res.render('vaccount/signin');
+    res.render('vaccount/signin.hbs');
 })
 
 router.post('/signin', async function (req, res) {
