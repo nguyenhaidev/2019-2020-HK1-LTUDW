@@ -9,9 +9,13 @@
             {{#each products}}
             <div class="rounded-lg h-100 col-md-3 mb-5">
                 <a href="/product/{{product_id}}" style="text-decoration: none; color: inherit;">
-
-                    <div class="d-flex justify-content-end">
-                        <div class="position-absolute d-inline-flex p-2">
+                    <div class="d-flex justify-content-between">
+                        <div class="d-inline-flex p-2">
+                            <div class="font-weight-bold text-warning">
+                                <p><i class="fa fa-heart" aria-hidden="true"></i></p>
+                            </div>
+                        </div>
+                        <div class="d-inline-flex p-2">
                             <div class="font-weight-bold">
                                 <p><i class="fa fa-gavel" aria-hidden="true"></i> {{offer_count}}</p>
                             </div>
