@@ -25,13 +25,17 @@
                                     <p><i class="fa fa-heart" aria-hidden="true"></i></p>
                                 </div>
                             </div>
+                            <div class="d-inline-flex ml-4 mt-2">
+                                <h5 class="font-weight-bold text-center text-danger">00:00:00</h5>
+                            </div>
                             <div class="d-inline-flex p-2">
                                 <div class="font-weight-bold">
                                     <p><i class="fa fa-gavel" aria-hidden="true"></i> {{offer_count}}</p>
                                 </div>
                             </div>
                         </div>
-                        <img src="/public/upload/{{product_id}}/main.jpg" class="card-img-top height-auto" alt="{{product_name}}">
+                        <img src="/public/upload/{{product_id}}/main.jpg" class="card-img-top height-auto"
+                            alt="{{product_name}}">
                         <div class="list-group">
                             <div class="d-flex justify-content-between" style="padding-right:10px; padding-left:10px; ">
                                 <div>
@@ -67,20 +71,10 @@
                                     <p class="text-warning mb-0">{{formatPrice purchase_price}}</p>
                                 </div>
                             </div>
-                            <p id="basicUsage" class="font-weight-bold text-center text-danger border-bottom mt-0"
-                                style="font-size: 16pt;margin-bottom: 0rem;">
-                                00:00:00</p>
-                            <div class="text-center" style="font-size: 18px;">
-                                <p class="ml-2 mr-2 mb-0" style="height: 48px;font-size: 12pt">
+                            <div class="border-top text-center">
+                                <p class="ml-2 mr-2 mb-0" style="height: 48px;font-size: 11pt">
                                     {{product_name}}</p>
-
-                                <div class=" d-flex justify-content-end">
-
-                                    <div class="position-absolute d-inline-flex" style="padding-right: 5px;">
-                                        <img src="assets/Items/heart.jpg" alt="" class="rounded-circle"
-                                            style="height: 2rem; width: 2rem;"></div>
-                                </div>
-                                <button class="btn btn-sm btn-outline-primary w-75">
+                                <button class="btn text-primary font-weight-bold z-depth-0 p-0 m-0 ml-2 mr-2 w-100">
                                     <p class="m-0"><i class="fa fa-cart-plus" aria-hidden="true"></i><span>
                                             Mua ngay</span>
                                     </p>
