@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CDTH - Online Auction Floor</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.10.1/css/mdb.min.css" rel="stylesheet">
+    <script src="https://cdn.ckeditor.com/4.8.0/full-all/ckeditor.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+    <!-- {{{_sections.css}}} -->
+</head>
+
+<body>
+
+    <!--Navbar-->
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark  special-color-dark">
+
+        <!-- Navbar brand -->
+        <a class="navbar-brand" href="/"><i class="fa fa-home" aria-hidden="true"></i> CDTH</a>
+
+        <!-- Collapse button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+            aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse" id="basicExampleNav">
+
+            <!-- Links -->
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Trang chủ
+                    </a>
+                </li>
+
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Quản Lý Sản phẩm
+                    <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Thông tin</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Liên hệ</a>
+                </li>
+
+            </ul>
+            <!-- Links -->
+
+            <ul class="navbar-nav nav-flex-icons">
+                <form id="frmSignout" action="/account/signout" method="POST"></form>
+                {{#if isAuthenticated}}
+                <li class="nav-item d-none d-xl-inline-block mr-3">
+                    <a class="nav-link dropdown-toggle waves-effect waves-light rounded-pill btn-sm  blue-gradient mt-1 pt-1 pb-1"
+                        href="#">
+                        <span><i class="fa fa-plus" aria-hidden="true"></i> Thêm sản phẩm</span>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle waves-effect waves-light rounded-pill btn-sm  blue-gradient mt-1 pt-1 pb-1" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user"></i> {{authUser.fullname}}</a>
+                    <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="/">Profile</a>
+                        <a class="dropdown-item" href="javascript: $('#frmSignout').submit()">Logout</a>
+                    </div>
+                </li>
+
+                {{else}}
+                <li class="nav-item d-none d-xl-inline-block">
+                    <a class="nav-link waves-effect waves-light rounded-pill btn-sm" href="/account/signin">
+                        <span><i class="fas fa-sign-in-alt" aria-hidden="true"></i> Sign in</span>
+                    </a>
+                </li>
+                <li class="nav-item d-none d-xl-inline-block">
+                    <a class="nav-link waves-effect waves-light rounded-pill btn-sm blue-gradient mt-1 pt-1 pb-1"
+                        href="/account/signup">
+                        <span><i class="fa fa-user-plus" aria-hidden="true"></i> Sign up</span>
+                    </a>
+                </li>
+                {{/if}}
+
+            </ul>
+        </div>
+        <!-- Collapsible content -->
+
+    </nav>
+
+
+<!-- Body -->
+<div>
+    <div class="mt-5 pt-4">
+        <div class="container prd-dark-grey-text">
+            <div class="row">
+                <div class="col-md-7 mb-4 border-right">
+                    <img class="img-fluid" src="/public/upload/{{product.product_id}}/main.jpg"
+                        alt={{product.product_name}} />
+                </div>
+                <div class="col-md-5 mb-4 text-left">
+                    <div class="p-4">
+                        <h3>{{product.product_name}}</h3>
+                        {{!-- <a href="/product/{{product.product_id}}" class="mb-3">Mã sản phẩm: {{product.product_id}}</a> --}}
+                        <div class="mb-3">
+                            <a href="/">
+                                <span class="badge badge-pill badge-primary mr-1">{{category.category_title}}</span>
+                            </a>
+                            <a href="/">
+                                <span class="badge badge-pill badge-danger mr-1">Mới</span>
+                            </a>
+                            <a href="/">
+                                <span class="badge badge-pill badge-warning mr-1">Bán chạy</span>
+                            </a>
+                        </div>
+                        <p class="font-weight-bold text-danger">
+                            {{formatPrice product.highest_price}}</p>
+
+                        <p class="mb-3 font-weight-bold prd-large-text">Mô tả:</p>
+                        <p>{{product.tiny_desc}}</p>
+
+                        <form method="POST" action="">
+                            <input name="product_id" value="{{product.product_id}}" style="display: none;">
+                            <input type="number" value="{{increasePrice product.highest_price}}" name="price"
+                                aria-label="Search" class="form-control" />
+                            <div class="d-flex justify-content-left">
+                                <button formaction="/product/add" type="submit" class="btn btn-primary w-50 mr-1 mt-3 font-weight-bold">Ra giá</button>
+                                <button formaction="/product/purchase" class="btn btn-success w-50 ml-1 mt-3">
+                                    <p class="m-0 font-weight-bold">Mua ngay</p>
+                                    <p class="m-0">{{formatPrice product.purchase_price}}</p>
+                                </button>
+                            </div class="d-flex justify-content-left">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="container">
+        </hr>
+
+        <div class="mb-3 rounded container">
+            <div class="row p-5 prd-att-background d-flex">
+                <h3 class="mb-4">Lịch sử đấu giá</h3>
+                <table class="table text-left prd-normal-text">
+                    <thead>
+                        <tr>
+                            <th class="w-25">Thời điểm</th>
+                            <th class="w-25">Người đấu giá</th>
+                            <th class="w-75">Số tiền</th>
+                            <th class="w-25">Chặn</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each this.history}}
+                        <tr>
+                            <td>{{formatDate creation_date}}</td>
+                            <td>{{fullname}}</td>
+                            <td>{{formatPrice price}}</td>
+                            {{#if isBaned}}
+                            <td>
+                                <button class="btn btn-sm btn-danger">
+                                    <i class="fa fa-lock"></i>
+                                </button>
+                            </td>lock
+                            {{else}}
+                            <td>
+                                <button class="btn btn-sm btn-success">
+                                    <i class="fa fa-lock-open"></i>
+                                </button>
+                            </td>
+                            {{/if}}
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- End Body -->
+
+    <script>
+        CKEDITOR.replace('editor', {
+        skin: 'moono',
+        enterMode: CKEDITOR.ENTER_BR,
+        shiftEnterMode:CKEDITOR.ENTER_P,
+        toolbar: [
+            { name: 'clipboard', items: [ 'Undo', 'Redo' ] },
+            { name: 'links', items: [ 'Link', 'Unlink'] },
+            { name: 'insert', items: [ 'Image', 'Table'] },
+            { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', '-', 'RemoveFormat' ] },
+            { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-'] },
+            { name: 'styles', items: [ 'Styles', 'Format' ] }]
+        });
+    </script>
+
+    <script>
+        $(document).ready(function(){
+        // convert selects already on the page at dom load
+            $('select.form-control').combobox();  
+    
+            $('#it').click(function(e){
+            $('ul.dropdown-menu').toggle();
+            });
+        });
+    </script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/js/fileinput.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/themes/fa/theme.min.js"></script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.10.1/js/mdb.min.js"></script>
+    <!-- {{{_sections.js}}} -->
+</body>
+
+</html>

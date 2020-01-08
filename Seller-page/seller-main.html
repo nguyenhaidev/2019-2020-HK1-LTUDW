@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CDTH - Online Auction Floor</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.10.1/css/mdb.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="demo.css">
+    <!-- {{{_sections.css}}} -->
+</head>
+
+<body>
+
+    <!--Navbar-->
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark  special-color-dark">
+
+        <!-- Navbar brand -->
+        <a class="navbar-brand" href="/"><i class="fa fa-home" aria-hidden="true"></i> CDTH</a>
+
+        <!-- Collapse button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+            aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse" id="basicExampleNav">
+
+            <!-- Links -->
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Trang chủ
+                    </a>
+                </li>
+
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Quản Lý Sản phẩm
+                    <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Thông tin</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Liên hệ</a>
+                </li>
+
+            </ul>
+            <!-- Links -->
+
+            <ul class="navbar-nav nav-flex-icons">
+                <form id="frmSignout" action="/account/signout" method="POST"></form>
+                {{#if isAuthenticated}}
+                <li class="nav-item d-none d-xl-inline-block mr-3">
+                    <a class="nav-link dropdown-toggle waves-effect waves-light rounded-pill btn-sm  blue-gradient mt-1 pt-1 pb-1"
+                        href="#">
+                        <span><i class="fa fa-plus" aria-hidden="true"></i> Thêm sản phẩm</span>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle waves-effect waves-light rounded-pill btn-sm  blue-gradient mt-1 pt-1 pb-1" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user"></i> {{authUser.fullname}}</a>
+                    <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="/">Profile</a>
+                        <a class="dropdown-item" href="javascript: $('#frmSignout').submit()">Logout</a>
+                    </div>
+                </li>
+
+                {{else}}
+                <li class="nav-item d-none d-xl-inline-block">
+                    <a class="nav-link waves-effect waves-light rounded-pill btn-sm" href="/account/signin">
+                        <span><i class="fas fa-sign-in-alt" aria-hidden="true"></i> Sign in</span>
+                    </a>
+                </li>
+                <li class="nav-item d-none d-xl-inline-block">
+                    <a class="nav-link waves-effect waves-light rounded-pill btn-sm blue-gradient mt-1 pt-1 pb-1"
+                        href="/account/signup">
+                        <span><i class="fa fa-user-plus" aria-hidden="true"></i> Sign up</span>
+                    </a>
+                </li>
+                {{/if}}
+
+            </ul>
+        </div>
+        <!-- Collapsible content -->
+
+    </nav>
+
+
+    <!-- {{{body}}} -->
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-md-3 col-sm-12">
+            <h3>Danh mục sản phẩm</h3>
+            <form class="ml-3 mt-3">
+                <!-- {{#each categories}} -->
+                <div class="custom-control custom-checkbox mb-2">
+                    <input type="checkbox" class="custom-control-input" id="category_{{category_id}}">
+                    <label class="custom-control-label" for="category_{{category_id}}">{{category_title}}</label>
+                </div>
+                <!-- {{/each}} -->
+            </form>
+        </div>
+        <div class="col-md-9 col-sm-12 border-left container">
+            <!-- {{#if isEmpty}} -->
+            <h3>Không có sản phẩm!!!</h3>
+            <!-- {{else}} -->
+            <div class="d-flex justify-content-left mx-auto row ">
+                <!-- {{#each products}} -->
+                <div class="rounded-lg col-md-4 mb-5" style="font-size: 10pt;">
+                    <div class="card bg-light mb-3" style="max-width: 18rem;">
+                        <div class="card-header">{{product_id}} </div>
+                        <div class="card-body">
+                            <h5 class="card-title">{{product_name}}</h5>
+                            <h6 class="card-title">{{formatPrice highest_price}}</h6>
+                            <div class="d-flex justify-content-between">
+                                <button type="button" class="btn btn-primary btn-sm ">
+                                    <i class="fa fa-eye"></i>
+                                    Xem                                
+                                </button>
+                                <button type="button" class="btn btn-primary btn-sm ">
+                                    <i class="fa fa-trash"></i>
+                                    Xóa   
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- {{/each}} -->
+            </div>
+            <!-- {{/if}} -->
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- {{{body}}} -->
+    <script type="text/javascript" src="demo.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.10.1/js/mdb.min.js"></script>
+    <!-- {{{_sections.js}}} -->
+</body>
+
+</html>
