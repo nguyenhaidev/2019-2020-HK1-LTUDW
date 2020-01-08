@@ -1,31 +1,40 @@
 <div class="p-5 w-75 mx-auto d-flex flex-column">
+    {{#if isEmpty}}
+    <h3>Không có sản phầm nào đang theo dõi</h3>
+    {{else}}
+
     <table class="table table-hover">
         <thead>
-            <tr>
+            {{!-- <tr>
                 <th class="w-25" scope="col"></th>
                 <th scope="col">Tên</th>
                 <th scope="col">Giá</th>
-            </tr>
+            </tr> --}}
         </thead>
         <tbody>
             {{#each details}}
-                <tr>
-                    <th class="text-center" scope="row">
-                        <a href="#">
-                            <img width="128" src="/public/upload/{{product_id}}/main.jpg">
-                        </a>
-                    </th>
-                    <td class="mx-auto align-middle">
-                        <a href="#" style="text-decoration: none; color: inherit;">
-                            <h4>{{product_name}}</h4>
-                        </a>
-                        <a href="#">{{fullname}}</a>
-                    </td>
-                    <td class="align-middle">
-                        <h5 class="font-weight-bold">{{formatPrice highest_price}}</h5>
-                    </td>
-                </tr>
+            <tr>
+                <th class="text-center" scope="row">
+                    <a href="/product/{{product_id}}">
+                        <img width="128" src="/public/upload/{{product_id}}/main.jpg">
+                    </a>
+                </th>
+                <form id="frmWatchlist{{product_id}}" method="POST" action="/account/watchlist/remove">
+                    <input class="d-none" name="product_id" value="{{product_id}}">
+                </form>
+                <td class="mx-auto align-middle">
+                    <a href="/product/{{product_id}}" style="text-decoration: none; color: inherit;">
+                        <h4>{{product_name}}</h4>
+                    </a>
+                    <a class="text-danger mr-2" href="javascript: $('#frmWatchlist{{product_id}}').submit();">Xóa</a>
+                    <a href="#">{{fullname}}</a>
+                </td>
+                <td class="align-middle">
+                    <h5 class="font-weight-bold">{{formatPrice highest_price}}</h5>
+                </td>
+            </tr>
             {{/each}}
         </tbody>
     </table>
+    {{/if}}
 </div>

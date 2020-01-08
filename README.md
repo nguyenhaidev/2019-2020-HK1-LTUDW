@@ -1,6 +1,11 @@
 2019-2020-HK1-LTUDW
 Bài tập lớn Lập trình ứng dụng web
 
+## Roles
+- `1`: bidder
+- `2`: seller
+- `3`: admin
+
 ## Stored Procedures/Functions
 - `sp_bid_product`: đấu giá sản phẩm 
 - `sp_get_most_offer_count`: lấy top 5 sản phẩm được đấu giá nhiều nhất
