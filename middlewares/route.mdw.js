@@ -6,14 +6,14 @@ console.log('middlewares/route.mdw')
 module.exports = function (app) {
 
     app.get('/', async function (req, res) {
-        const rows = await productModel.getMostOffersCount();
-        const highestRows = await productModel.getMostHighestPrice();
-        const endingSoon = await productModel.getEndingSoon();
+        const offerCount  = await productModel.getMostOffersCount();
+        const highestPrice = await productModel.getMostHighestPrice();
+        const endingSoon = await productModel.getMostEndingSoon();
         res.render('home.hbs', {
-            mostOfferProducts: rows,
-            mostHighestPrice: highestRows,
-            endingSoon: endingSoon,
-            empty: rows.length === 0
+            mostOfferProducts: offerCount[0],
+            mostHighestPrice: highestPrice[0],
+            endingSoon: endingSoon[0],
+            empty: offerCount.length === 0
         });
     });
 

@@ -47,7 +47,7 @@
                         aria-haspopup="true" aria-expanded="false">Danh mục</a>
                     <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
                         {{#each categories}}
-                            <a class="dropdown-item" href="/category/{{category_id}}">{{category_title}}</a>
+                        <a class="dropdown-item" href="/category/{{category_id}}">{{category_title}}</a>
                         {{/each}}
                     </div>
                 </li>
@@ -56,60 +56,44 @@
             <!-- Links -->
 
             <ul class="navbar-nav nav-flex-icons">
-                <li class="nav-item">
-                    <form class="form-inline">
-                        <div class="my-0">
-                            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                <li class="nav-item d-none d-xl-inline-block">
+                    <form class="form-inline" method="POST" action="/product/search">
+                        <div class="my-0 input-group">
+                            <span class="input-group-append">
+                                <div class="input-group-text" style="border-radius: 100px 0 0 100px;"><i
+                                        class="fa fa-search"></i></div>
+                            </span>
+                            <input class="form-control mr-sm-2" style="border-radius: 0 100px 100px 0;"
+                                name="searchKeyword" type="text" placeholder="Search" aria-label="Search">
+
                         </div>
                     </form>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link waves-effect waves-light">
-                        <i class="fab fa-twitter"></i>
+                <li class="nav-item d-none d-xl-inline-block">
+                    <a class="nav-link waves-effect waves-light rounded-pill btn-sm" href="/account/signin">
+                        <span><i class="fa fa-sign-in-alt" aria-hidden="true"></i> Sign in</span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link waves-effect waves-light">
-                        <i class="fab fa-google-plus-g"></i>
+                <li class="nav-item d-none d-xl-inline-block">
+                    <a class="nav-link waves-effect waves-light rounded-pill btn-sm blue-gradient mt-1 pt-1 pb-1" href="/account/signup">
+                        <span><i class="fa fa-user-plus" aria-hidden="true"></i> Sign up</span>
                     </a>
-                </li>
-                <li class="nav-item dropdown">
-                    <div class="flipthis-wrapper"><a class="nav-link dropdown-toggle waves-effect waves-light"
-                            id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
-                            <i class="fas fa-user"></i>
-                        </a></div>
-                    <div class="dropdown-menu dropdown-menu-right dropdown-default"
-                        aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item waves-effect waves-light" href="#">Action</a>
-                        <a class="dropdown-item waves-effect waves-light" href="#">Another action</a>
-                        <a class="dropdown-item waves-effect waves-light" href="#">Something else here</a>
-                    </div>
                 </li>
             </ul>
         </div>
         <!-- Collapsible content -->
 
     </nav>
-    <!--/.Navbar-->
-
     {{{body}}}
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
-    {{!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script> --}}
-    <!-- JQuery -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <!-- Bootstrap tooltips -->
     <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
-    <!-- Bootstrap core JavaScript -->
     <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <!-- MDB core JavaScript -->
     <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.10.1/js/mdb.min.js"></script>
     {{{_sections.js}}}
