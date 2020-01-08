@@ -36,12 +36,12 @@
                     </a>
                 </li>
 
-                <li class="nav-item active">
+                <li class="nav-item ">
                     <a class="nav-link" href="#">Quản Lý Sản phẩm
                     <span class="sr-only">(current)</span>
                     </a>
                 </li>
-                <li class="nav-item ">
+                <li class="nav-item active">
                     <a class="nav-link" href="#">Lịch sử 
                     <span class="sr-only">(current)</span>
                     </a>
@@ -96,98 +96,103 @@
     </nav>
 
 
-<!-- Body -->
-<div>
-    <div class="mt-5 pt-4">
-        <div class="container prd-dark-grey-text">
-            <div class="row">
-                <div class="col-md-7 mb-4 border-right">
-                    <img class="img-fluid" src="/public/upload/{{product.product_id}}/main.jpg"
-                        alt={{product.product_name}} />
+<!-- body -->
+<div class="w-100 h-100 p-5">
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-md-6 shadow bg-white rounded p-5">
+                <div class="text-center">
+                    <h3 class="mb-5 font-weight-bold">Thông tin sản phẩm</h3>
                 </div>
-                <div class="col-md-5 mb-4 text-left">
-                    <div class="p-4">
-                        <h3>{{product.product_name}}</h3>
-                        {{!-- <a href="/product/{{product.product_id}}" class="mb-3">Mã sản phẩm: {{product.product_id}}</a> --}}
-                        <div class="mb-3">
-                            <a href="/">
-                                <span class="badge badge-pill badge-primary mr-1">{{category.category_title}}</span>
-                            </a>
-                            <a href="/">
-                                <span class="badge badge-pill badge-danger mr-1">Mới</span>
-                            </a>
-                            <a href="/">
-                                <span class="badge badge-pill badge-warning mr-1">Bán chạy</span>
-                            </a>
+                <form>
+                    <div class="form-group">
+                        <label>Tên sản phẩm</label>
+                        <input type="text" class="form-control" placeholder="Gucci tee">
+                    </div>
+
+                    <div class="form-group" id="mainCat">
+                        <select class="form-control">
+                            {{#each categories}}
+                            <option value="+47">{{category_title}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+
+                    <div class="form-group" id="subCat">
+                        <select class="form-control">
+                            {{#each categories}}
+                            <option value={{category_title}}>{{Subcategory_title}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Giá khởi điểm</label>
+                        <input type="text" class="form-control" placeholder="1000000">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Bước giá</label>
+                        <input type="text" class="form-control" placeholder="1000">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="buynow">Giá mua ngay</label>
+                        <div class="input-group" id="buynow">
+                            <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                    <input type="checkbox" class="checkbox">
+                                    </div>
+                                </div> 
+                            <input type="text" class="form-control" aria-describedby="PriceStep" placeholder="1500000"> 
                         </div>
-                        <p class="font-weight-bold text-danger">
-                            {{formatPrice product.highest_price}}</p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="input-group">
+                               <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                 <input type="checkbox" class="checkbox">
+                                 </div>
+                             </div> 
+                            <input type="text" class="form-control" aria-describedby="PriceStep" placeholder="Tựu động gia hạn" disabled="true"> 
+                        </div>    
+                    </div>
+                    <div class="form-group">
+                        <label for="editor">Mô tả</label>
+                        <textarea id="editor"></textarea>    
+                    </div>
 
-                        <p class="mb-3 font-weight-bold prd-large-text">Mô tả:</p>
-                        <p>{{product.tiny_desc}}</p>
-
-                        <form method="POST" action="">
-                            <input name="product_id" value="{{product.product_id}}" style="display: none;">
-                            <input type="number" value="{{increasePrice product.highest_price}}" name="price"
-                                aria-label="Search" class="form-control" />
-                            <div class="d-flex justify-content-left">
-                                <button formaction="/product/add" type="submit" class="btn btn-primary w-50 mr-1 mt-3 font-weight-bold">Ra giá</button>
-                                <button formaction="/product/purchase" class="btn btn-success w-50 ml-1 mt-3">
-                                    <p class="m-0 font-weight-bold">Mua ngay</p>
-                                    <p class="m-0">{{formatPrice product.purchase_price}}</p>
-                                </button>
-                            </div class="d-flex justify-content-left">
+                    <div class="form-group">
+                        <form method="POST" novalidate enctype="multipart/form-data">
+                            <div class="card shadow">
+                                <h5 class="card-header">
+                                Hình mô tả
+                                </h5>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <div class="">
+                                            <input id="fuMain" name="fuMain" type="file" multiple accept="image/x-png,image/gif,image/jpeg">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </form>
                     </div>
-                </div>
+
+                    <div class="form-group text-center">
+                        <button class="btn btn-success align-center ">
+                        Thêm sản phẩm
+                    </button>
+                    </div>
+                </form>
             </div>
-        </div>
-
-        <hr class="container">
-        </hr>
-
-        <div class="mb-3 rounded container">
-            <div class="row p-5 prd-att-background d-flex">
-                <h3 class="mb-4">Lịch sử đấu giá</h3>
-                <table class="table text-left prd-normal-text">
-                    <thead>
-                        <tr>
-                            <th class="w-25">Thời điểm</th>
-                            <th class="w-25">Người đấu giá</th>
-                            <th class="w-75">Số tiền</th>
-                            <th class="w-25">Chặn</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {{#each this.history}}
-                        <tr>
-                            <td>{{formatDate creation_date}}</td>
-                            <td>{{fullname}}</td>
-                            <td>{{formatPrice price}}</td>
-                            {{#if isBaned}}
-                            <td>
-                                <button class="btn btn-sm btn-danger">
-                                    <i class="fa fa-lock"></i>
-                                </button>
-                            </td>lock
-                            {{else}}
-                            <td>
-                                <button class="btn btn-sm btn-success">
-                                    <i class="fa fa-lock-open"></i>
-                                </button>
-                            </td>
-                            {{/if}}
-                        </tr>
-                        {{/each}}
-                    </tbody>
-                </table>
-            </div>
-
         </div>
     </div>
 </div>
 
-<!-- End Body -->
+<!-- End body -->
+
 
     <script>
         CKEDITOR.replace('editor', {

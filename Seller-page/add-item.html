@@ -41,6 +41,11 @@
                     <span class="sr-only">(current)</span>
                     </a>
                 </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="#">Lịch sử 
+                    <span class="sr-only">(current)</span>
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Thông tin</a>
                 </li>
@@ -87,15 +92,14 @@
             </ul>
         </div>
         <!-- Collapsible content -->
-
     </nav>
 
 
 <!-- body -->
-<div class="w-100 h-100 p-5">
+<div class="w-100 h-100 p-1">
     <div class="container">
         <div class="row justify-content-md-center">
-            <div class="col-md-6 shadow bg-white rounded p-5">
+            <div class="col-md-10 shadow bg-white rounded p-5">
                 <div class="text-center">
                     <h3 class="mb-5 font-weight-bold">Thông tin sản phẩm</h3>
                 </div>
@@ -107,39 +111,64 @@
 
                     <div class="form-group" id="mainCat">
                         <select class="form-control">
+                            <option value="NULL">Danh mục</option>
                             {{#each categories}}
-                            <option value="+47">{{category_title}}</option>
+                            <option value={{category_title}}>{{category_title}}</option>
                             {{/each}}
                         </select>
                     </div>
 
                     <div class="form-group" id="subCat">
                         <select class="form-control">
+                             <option value="NULL">Danh mục phụ</option>
                             {{#each categories}}
                             <option value={{category_title}}>{{Subcategory_title}}</option>
                             {{/each}}
                         </select>
                     </div>
 
+
                     <div class="form-group">
-                        <label>Giá khởi điểm</label>
-                        <input type="text" class="form-control" placeholder="1000000">
+                        <label for="strartPrice">Giá khởi điểm</label>
+                        <div class="input-group" id="strartPrice"> 
+                            <input type="text" class="form-control" aria-describedby="Start Price" placeholder="10000" min=0> 
+                            <div class="input-group-append">
+                                <div class="input-group-text">Đồng</div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group">
-                        <label>Bước giá</label>
-                        <input type="text" class="form-control" placeholder="1000">
+                        <label for="buyNowPrice">Giá khởi điểm</label>
+                        <div class="input-group" id="buyNowPrice"> 
+                            <input type="text" class="form-control" aria-describedby="Buy Now Price" placeholder="1500000" min=0> 
+                            <div class="input-group-append">
+                                <div class="input-group-text">Đồng</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="buyStepPrice">Giá khởi điểm</label>
+                        <div class="input-group" id="buyStepPrice"> 
+                            <input type="text" class="form-control" aria-describedby="Step Price" placeholder="1500000" min=0> 
+                            <div class="input-group-append">
+                                <div class="input-group-text">Đồng</div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group">
                         <label for="buynow">Giá mua ngay</label>
                         <div class="input-group" id="buynow">
                             <div class="input-group-prepend">
-                                    <div class="input-group-text">
+                                <div class="input-group-text">
                                     <input type="checkbox" class="checkbox">
-                                    </div>
-                                </div> 
+                                </div>
+                            </div> 
                             <input type="text" class="form-control" aria-describedby="PriceStep" placeholder="1500000"> 
+                            <div class="input-group-append">
+                                <div class="input-group-text">Đồng</div>
+                            </div>
                         </div>
                     </div>
                     
