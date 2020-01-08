@@ -15,7 +15,7 @@ module.exports = {
             return null;
 
         return rows[0];
-    } ,
+    },
     authenticate: (uname, passwd) => db.load(`
         SELECT 1
         FROM af_account
@@ -28,6 +28,11 @@ module.exports = {
     downVote: id => db.load(`
         UPDATE af_account
         SET downvote = downvote + 1
-        WHERE account_id = ${id}`)
+        WHERE account_id = ${id}`),
+    watchlistDetails: id => db.load(`
+        SELECT ap.*, ac.fullname FROM af_watchlist aw
+        JOIN af_product ap ON ap.product_id = aw.product_id
+        JOIN af_account ac ON ac.account_id = aw.account_id
+        WHERE aw.account_id = ${id}`)
 
 }

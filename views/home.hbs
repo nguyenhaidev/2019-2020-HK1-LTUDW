@@ -1,37 +1,75 @@
-<div class="p-5" style="background-color: #F5F5F5;">
-    <div class="overflow-hidden rounded ml-5 mr-5 p-5" style="background-color: white;">
-        {{#each this.products}}
-        <div class="card rounded-lg h-100 mr-5 float-left"
-            style="width: 260px; margin: 0.5rem; padding-top: 0.5rem; padding-bottom: 0.5rem;">
-            <a href="/product/1"
-                style="text-decoration: none; color: inherit;">
+{{#section 'js'}}
+<script src="https://raw.githubusercontent.com/mckamey/countdownjs/master/countdown.js"></script>
+<script>
+    var timer = new Timer();
+    timer.start();
+    timer.addEventListener('secondsUpdated', function (e) {
+        $('#basicUsage').html(timer.getTimeValues().toString());
+    });
 
-                <div class="d-flex justify-content-end">
-                    <div class="position-absolute d-inline-flex p-2">
-                        <div>
-                            <img src="assets/Items/bid.jpg" alt="" class="rounded-circle"
-                                style="height: 2rem; width: 2rem;">
+</script>
+{{/section}}
+
+<div class="container">
+    <div class="d-flex justify-content-left mx-auto row">
+        {{#each endingSoon}}
+        <div class="rounded-lg col-md-3 mb-5" style="font-size: 10pt;">
+            <a href="/product/{{product_id}}" style="text-decoration: none; color: inherit;">
+                <div class="d-flex justify-content-between">
+                    <div class="d-inline-flex p-2">
+                        <div class="font-weight-bold text-warning">
+                            <p><i class="fa fa-heart" aria-hidden="true"></i></p>
                         </div>
+                    </div>
+                    <div class="d-inline-flex p-2">
                         <div class="font-weight-bold">
-                            <p>100</p>
+                            <p><i class="fa fa-gavel" aria-hidden="true"></i> {{offer_count}}</p>
                         </div>
                     </div>
                 </div>
-                <img src="/public/upload/{{product_id}}/main.jpg" class="card-img-top" style="height: 200px" alt="...">
+                <img src="/public/upload/{{product_id}}/main.jpg" class="card-img-top height-auto"
+                    alt="...">
                 <div class="list-group">
-                    <div class=" d-flex justify-content-between" style="padding-right:10px; padding-left:10px; ">
+                    <div class="d-flex justify-content-between" style="padding-right:10px; padding-left:10px; ">
                         <div>
-                            <p class="font-weight-bold text-primary" style="margin-bottom: 0rem">{{bidder_name}}</p>
+                            <p style="margin-bottom: 0rem">Người đăng:</p>
                         </div>
                         <div>
-                            <p style="color: red; margin-bottom: 0rem;">{{highest_price}} vnđ</p>
+                            <p class="text-primary" style="margin-bottom: 0rem;">
+                                {{bidder_name}}</p>
                         </div>
                     </div>
-                    <p class="text-secondary" style="margin-left:10px;  margin-bottom: 0rem;">{{start_date}}</p>
-                    <p class="font-weight-bold text-center text-danger border-bottom" style="margin-bottom: 0rem;">
+                    <div class="d-flex justify-content-between" style="padding-right:10px; padding-left:10px; ">
+                        <div>
+                            <p style="margin-bottom: 0rem">Ngày đăng:</p>
+                        </div>
+                        <div>
+                            <p class="text-secondary" style="margin-bottom: 0rem;">
+                                {{formatDate start_date}}</p>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between" style="padding-right:10px; padding-left:10px; ">
+                        <div>
+                            <p class="" style="margin-bottom: 0rem;">Giá:</p>
+                        </div>
+                        <div>
+                            <p class="text-warning mb-0">{{formatPrice highest_price}}</p>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between" style="padding-right:10px; padding-left:10px; ">
+                        <div>
+                            <p class="" style="margin-bottom: 0rem;">Giá mua ngay:</p>
+                        </div>
+                        <div>
+                            <p class="text-warning mb-0">{{formatPrice purchase_price}}</p>
+                        </div>
+                    </div>
+                    <p id="basicUsage" class="font-weight-bold text-center text-danger border-bottom mt-0"
+                        style="font-size: 16pt;margin-bottom: 0rem;">
                         00:00:00</p>
                     <div class="text-center" style="font-size: 18px;">
-                        <p class="font-weight-bold" style="margin-bottom: 0rem;">PS4</p>
+                        <p class="ml-2 mr-2 mb-0" style="height: 48px;font-size: 12pt">
+                            {{product_name}}</p>
 
                         <div class=" d-flex justify-content-end">
 
@@ -39,7 +77,11 @@
                                 <img src="assets/Items/heart.jpg" alt="" class="rounded-circle"
                                     style="height: 2rem; width: 2rem;"></div>
                         </div>
-                        <p style="margin-bottom: 0rem; color: red;">{{purchase_price}}</p>
+                        <button class="btn btn-sm btn-outline-primary w-75">
+                            <p class="m-0"><i class="fa fa-cart-plus" aria-hidden="true"></i><span>
+                                    Mua ngay</span>
+                            </p>
+                        </button>
                     </div>
                 </div>
             </a>
