@@ -50,7 +50,8 @@ router.post('/signup', async function (req, res) {
     res.render('vaccount/signup.hbs');
 })
 
-router.post('/logout', async function (req, res) {
+router.post('/signout', async function (req, res) {
+    console.log("/account/signout");
     req.session.isAuthenticated = false;
     req.session.authUser = null;
     res.redirect(req.headers.referer);
