@@ -22,6 +22,11 @@ module.exports = {
             FROM af_account
             WHERE uname = '${uname}'
         `)
+
+        if (rows.length === 0)
+        return null;
+        
+        return rows[0];
     },
     authenticate: (uname, passwd) => db.load(`
         SELECT 1
