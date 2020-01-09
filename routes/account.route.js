@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const accountModel = require('../models/account.model');
 const config = require('../config/default.json');
 const router = express.Router();
+const catModel = require('../models/category.model');
 
 router.get('/signin', function (req, res) {
     res.render('vaccount/signin');
@@ -56,9 +57,70 @@ router.post('/logout', async function (req, res) {
     res.redirect(req.headers.referer);
 })
 
-// const restrict = require('../middlewares/auth.mdw');
-// router.get('/profile', restrict, async function (req, res) {
-//   res.render('vwAccount/profile');
-// })
+router.get('/watchlist', async function(req, res) {
+    if (req.session.isAuthenticated === false) {
+        res.redirect("/account/signin");
+        return;
+    }
 
+    const result = await accountModel.watchlistDetails(req.session.authUser.account_id);
+
+    // console.log(result)
+
+    res.render('vaccount/watchlist.hbs', {
+        details: result,
+        isEmpty: result.length === 0
+    });
+})
+
+router.post('/watchlist/add', async function(req, res) {
+    // console.log(req.body);
+    accountModel.watchlistAdd({
+        account_id: req.session.authUser.account_id,
+        product_id: req.body.product_id
+    });
+    res.redirect(req.headers.referer);
+})
+
+router.post('/watchlist/remove', async function(req, res) {
+    // console.log(req.body);
+    accountModel.watchlistRemove({
+        account_id: req.session.authUser.account_id,
+        product_id: req.body.product_id
+    });
+    res.redirect(req.headers.referer);
+})
+
+router.get('/profile', async function(req, res) {
+    if (req.session.isAuthenticated === false) {
+        res.redirect('/');
+        return;
+    }
+
+    const user = req.session.authUser;
+
+    //console.log(user);
+
+    if (user.role_id === 1) {
+        res.render('vaccount/bidder.hbs');
+        return;
+    }
+
+    if (user.role_id === 2) {
+        res.render('vaccount/seller.hbs', {
+
+        });
+        return;
+    }
+
+    const rows = await accountModel.sellerRequests();
+    const categories = await catModel.getAllCategories();
+    const users = await accountModel.getAllUsers();
+    console.log(categories);
+    res.render('vaccount/admin.hbs', {
+        sellerRequests: rows,
+        categories: categories,
+        getAllUsers: users,
+    });
+})
 module.exports = router;

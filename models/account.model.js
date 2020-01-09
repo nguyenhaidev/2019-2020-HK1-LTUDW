@@ -28,6 +28,20 @@ module.exports = {
     downVote: id => db.load(`
         UPDATE af_account
         SET downvote = downvote + 1
-        WHERE account_id = ${id}`)
-
+        WHERE account_id = ${id}`),
+    watchlistDetails: id => db.load(`
+        SELECT ap.*, ac.fullname FROM af_watchlist aw
+        JOIN af_product ap ON ap.product_id = aw.product_id
+        JOIN af_account ac ON ac.account_id = aw.account_id
+        WHERE aw.account_id = ${id}`),
+    watchlistAdd: entity => db.insert(entity, 'af_watchlist'),
+    watchlistRemove: entity => db.deleteEx(`product_id = ${entity.product_id} AND account_id = ${entity.account_id}`, 'af_watchlist'),
+    sellerRequests: _ => db.load(`
+        SELECT sr.*, ac.fullname, ac.role_id FROM af_seller_request sr
+        JOIN af_account ac ON ac.account_id = sr.account_id
+        WHERE finish_flag = 0`),
+    getAllUsers: _ => db.load(`
+        SELECT *
+        FROM af_account
+        `)
 }
