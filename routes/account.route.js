@@ -72,7 +72,7 @@ router.get('/watchlist', async function(req, res) {
 
     const result = await accountModel.watchlistDetails(req.session.authUser.account_id);
 
-    // console.log(result)
+    // console.log(result);
 
     res.render('vaccount/watchlist.hbs', {
         details: result,
@@ -80,14 +80,18 @@ router.get('/watchlist', async function(req, res) {
     });
 })
 
-router.get('/is-available', async function(req, res) {
-    const user = accountModel.getAccountByUsername(req.query.uname);
+router.get('/uname-is-available', async function(req, res) {
+    const user = await accountModel.getAccountByUsername(req.query.uname);
     if (!user)
-    return true;
-    const email = accountModel.getEmailByUsername(req.query.uname);
+    return res.json(true);
+    return res.json(false);
+})
+
+router.get('/email-is-available', async function(req, res) {
+    const email = await accountModel.getEmailByUsername(req.query.email);
     if (!email)
-    return true;
-    return false;
+    return res.json(true);
+    return res.json(false);
 })
 
 router.post('/watchlist/add', async function(req, res) {
