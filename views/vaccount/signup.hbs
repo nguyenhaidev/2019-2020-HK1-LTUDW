@@ -1,3 +1,45 @@
+{{#section 'css'}}
+<link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
+{{/section}}
+
+{{#section 'js'}}
+<script>
+  $('#frmSignUp').submit(function (event) {
+    event.preventDefault();
+    validate();
+  });
+
+  function validate() {
+    let validated = false;
+    alert("Yay, you got me this time!");
+
+    const uname = $('#txtUsername').val();
+    $.getJSON(`/account/is-available?uname=${uname}`, function (data) {
+      if (data === true) {
+        validated = true;
+      } else {
+        validated = false;
+        alert('not available');
+      }
+    })
+
+    const email = $('#txtEmail').val();
+    $.getJSON(`/account/is-available?email=${email}`, function (data) {
+      if (data === true) {
+        validated = true;
+      } else {
+        validated = false;
+        alert('not available');
+      }
+    })
+
+    if (validated)
+        $('#frmSignUp').off('submit').submit();
+  }
+</script>
+{{/section}}
+
 <div class="w-100 h-100 p-5">
     <div class="container">
         <div class="row justify-content-md-center">
@@ -5,29 +47,33 @@
                 <div class="text-center">
                     <h3 class="mb-5 font-weight-bold">SIGN UP</h3>
                 </div>
-                <form method="POST" action="">
+                <form method="POST" id="frmSignUp">
                     <div class="form-group">
                         <label>Fullname</label>
-                        <input type="text" class="form-control" name="fullname" placeholder="CDTH Online Auction Floor">
+                        <input type="text" class="form-control" id="txtFullname" name="fullname" placeholder="CDTH Online Auction Floor">
                     </div>
                     <div class="form-group">
                         <label>Username</label>
-                        <input type="username" class="form-control" name="uname" placeholder="cdth">
+                        <input type="username" class="form-control" id="txtUname" name="uname" placeholder="cdth">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Password</label>
-                        <input type="password" class="form-control" name="passwd" placeholder="Password">
+                        <input type="password" class="form-control" id="txtPasswd" name="passwd" placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Confirm Password</label>
+                        <input type="password" class="form-control" id="txtCfrmPasswd" name="cfrmpasswd" placeholder="Password">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Email</label>
-                        <input type="email" class="form-control" name="email" aria-describedby="emailHelp"
+                        <input type="email" class="form-control" id="txtEmail" name="email" aria-describedby="emailHelp"
                             placeholder="email@auctionfloor.com">
                         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
                             else.</small>
                     </div>
                     <div class="form-group">
                         <label>Address</label>
-                        <input type="text" class="form-control" name="address"
+                        <input type="text" class="form-control" id="txtAddr" name="address"
                             placeholder="227 Nguyen Van Cu, Quan 5, TPHCM">
                         <input name="upvote" value="0" style="display: none;"/>
                         <input name="downvote" value="0" style="display: none;"/>
