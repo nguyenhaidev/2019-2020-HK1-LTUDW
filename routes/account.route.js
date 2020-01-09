@@ -84,7 +84,7 @@ router.get('/is-available', async function(req, res) {
     const user = accountModel.getAccountByUsername(req.query.uname);
     if (!user)
     return true;
-    const userEmail = accountModel.getEmailByUsername(req.query.uname);
+    const email = accountModel.getEmailByUsername(req.query.uname);
     if (!email)
     return true;
     return false;
