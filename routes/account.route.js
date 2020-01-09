@@ -41,7 +41,20 @@ router.get('/signup', function (req, res) {
 })
 
 router.post('/signup', async function (req, res) {
-    
+    const hash_pwd = bcrypt.hashSync(req.body.passwd);
+    const entity = {
+        account_id: 0,
+        role_id: 1,
+        uname: req.body.uname,
+        passwd: hash_pwd,
+        fullname: req.body.fullname,
+        address: req.body.address,
+        email: req.body.email,
+        upvote: 0,
+        downvote: 0
+    }
+    const ret = await accountModel.addAccount(entity);
+    res.render('/');
 })
 
 router.post('/signout', async function (req, res) {
