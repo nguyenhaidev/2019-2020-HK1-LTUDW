@@ -16,6 +16,13 @@ module.exports = {
 
         return rows[0];
     },
+    getEmailByUsername: async uname => {
+        const rows = await db.load(`
+            SELECT email
+            FROM af_account
+            WHERE uname = '${uname}'
+        `)
+    },
     authenticate: (uname, passwd) => db.load(`
         SELECT 1
         FROM af_account

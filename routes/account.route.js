@@ -41,13 +41,7 @@ router.get('/signup', function (req, res) {
 })
 
 router.post('/signup', async function (req, res) {
-    const passwd = req.body.passwd;
-    req.body.account_id = 0;
-    req.body.role_id = 1;
-    req.body.passwd = bcrypt.hashSync(passwd, config.authentication.saltRounds);
-    console.log(req.body.passwd);
-    accountModel.addAccount(req.body);
-    res.render('vaccount/signup.hbs');
+    
 })
 
 router.post('/signout', async function (req, res) {
@@ -63,6 +57,16 @@ router.get('/watchlist', async function(req, res) {
     res.render('vaccount/watchlist.hbs', {
         details: result
     });
+})
+
+router.get('/is-available', async function(req, res) {
+    const user = accountModel.getAccountByUsername(req.query.uname);
+    if (!user)
+    return true;
+    const userEmail = accountModel.getEmailByUsername(req.query.uname);
+    if (!email)
+    return true;
+    return false;
 })
 
 module.exports = router;
