@@ -12,44 +12,30 @@
   });
 
   function validate() {
-    let validated = false;
-    //alert("Yay, you got me this time!");
-
     const captcha_res = grecaptcha.getResponse();
     if(captcha_res.length == 0)
     {
         alert('Captcha is required');
-        return;
-    }
-    else
-    {
-        validated = true;
+        return false;
     }
 
-    const uname = $('#txtUsername').val();
-    $.getJSON(`/account/is-available?uname=${uname}`, function (data) {
-      if (data === true) {
-        validated = true;
-      } else {
-        validated = false;
-        alert('not available');
-        return;
+    const uname = $('#txtUname').val();
+    $.getJSON(`/account/uname-is-available?uname=${uname}`, function (data) {
+      if (data === false) {
+        alert('Username is not available');
+        return false;
       }
     })
 
     const email = $('#txtEmail').val();
-    $.getJSON(`/account/is-available?email=${email}`, function (data) {
-      if (data === true) {
-        validated = true;
-      } else {
-        validated = false;
-        alert('not available');
-        return;
+    $.getJSON(`/account/email-is-available?email=${email}`, function (data) {
+      if (data === false) {
+          alert('Email is not available');
+          return false;
       }
     })
 
-    if (validated)
-        $('#frmSignUp').off('submit').submit();
+    //$('#frmSignUp').off('submit').submit();
   }
 </script>
 {{/section}}
