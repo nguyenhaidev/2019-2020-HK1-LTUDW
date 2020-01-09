@@ -17,25 +17,18 @@
             {{else}}
             <div class="d-flex justify-content-left mx-auto row">
                 {{#each products}}
-                <div class="rounded-lg col-md-4 mb-5" style="font-size: 10pt;">
-                    <a href="/product/{{product_id}}" style="text-decoration: none; color: inherit;">
-                        <div class="d-flex justify-content-between">
-                            <div class="d-inline-flex p-2">
-                                <div class="font-weight-bold text-warning">
-                                    <p><i class="fa fa-heart" aria-hidden="true"></i></p>
-                                </div>
-                            </div>
-                            <div class="d-inline-flex ml-4 mt-2">
-                                <h5 class="font-weight-bold text-center text-danger">00:00:00</h5>
-                            </div>
-                            <div class="d-inline-flex p-2">
-                                <div class="font-weight-bold">
+                <div class="col-md-4 mb-5 p-2">
+                    <div class="rounded-lg shadow" style="font-size: 10pt;">
+                        <a href="/product/{{product_id}}" style="text-decoration: none; color: inherit;">
+                            <div class="position-absolute d-flex pt-2 ml-2 justify-content-between">
+                                <div class="font-weight-bold text-black-50">
                                     <p><i class="fa fa-gavel" aria-hidden="true"></i> {{offer_count}}</p>
                                 </div>
                             </div>
-                        </div>
-                        <img src="/public/upload/{{product_id}}/main.jpg" class="card-img-top height-auto"
-                            alt="{{product_name}}">
+
+                            <img src="/public/upload/{{product_id}}/main.jpg" class="card-img-top height-auto"
+                                alt="{{product_name}}">
+                        </a>
                         <div class="list-group">
                             <div class="d-flex justify-content-between" style="padding-right:10px; padding-left:10px; ">
                                 <div>
@@ -71,17 +64,23 @@
                                     <p class="text-warning mb-0">{{formatPrice purchase_price}}</p>
                                 </div>
                             </div>
-                            <div class="border-top text-center">
-                                <p class="ml-2 mr-2 mb-0" style="height: 48px;font-size: 11pt">
+
+                            <form id="frmWatchlist{{product_id}}" method="POST" action="/account/watchlist/add">
+                                <input class="d-none" name="product_id" value="{{product_id}}">
+                            </form>
+
+                            <div class="border-top d-flex mb-0">
+                                <p class="mb-0 font-weight-bold text-black-50"
+                                    style="height: 48px;font-size: 11pt; margin-left: 10px;">
                                     {{product_name}}</p>
-                                <button class="btn text-primary font-weight-bold z-depth-0 p-0 m-0 ml-2 mr-2 w-100">
-                                    <p class="m-0"><i class="fa fa-cart-plus" aria-hidden="true"></i><span>
-                                            Mua ngay</span>
-                                    </p>
-                                </button>
+                                <a class="mb-0 text-danger mt-1 ml-auto" href="javascript: $('#frmWatchlist{{product_id}}').submit();">
+                                    <i class="fas fa-heart" style="margin-right: 10px;"></i>
+                                </a>
                             </div>
+                            <h6 class="font-weight-bold text-center text-danger">{{formatEndDate end_date}}</h6>
                         </div>
-                    </a>
+
+                    </div>
                 </div>
                 {{/each}}
             </div>

@@ -40,6 +40,7 @@ module.exports = {
         SELECT ap.*, ac.fullname FROM af_watchlist aw
         JOIN af_product ap ON ap.product_id = aw.product_id
         JOIN af_account ac ON ac.account_id = aw.account_id
-        WHERE aw.account_id = ${id}`)
-
+        WHERE aw.account_id = ${id}`),
+    watchlistAdd: entity => db.insert(entity, 'af_watchlist'),
+    watchlistRemove: entity => db.deleteEx(`product_id = ${entity.product_id} AND account_id = ${entity.account_id}`, 'af_watchlist')
 }

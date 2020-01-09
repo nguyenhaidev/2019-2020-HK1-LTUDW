@@ -9,7 +9,7 @@ console.log('routes/category.route');
 router.get('/:id', async function (req, res) {
     const products = await productModel.getProductsByCat(req.params.id);
     const categories = await catModel.getAllCategories();
-    console.log(products)
+    // console.log(products)
     res.render('vproduct/common.hbs', {
         products: products,
         categories: categories,

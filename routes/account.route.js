@@ -58,17 +58,25 @@ router.post('/signup', async function (req, res) {
 })
 
 router.post('/signout', async function (req, res) {
-    console.log("/account/signout");
+    // console.log("/account/signout");
     req.session.isAuthenticated = false;
     req.session.authUser = null;
     res.redirect(req.headers.referer);
 })
 
 router.get('/watchlist', async function(req, res) {
-    const result = await accountModel.watchlistDetails(1)
-    console.log(result)
+    if (req.session.isAuthenticated === false) {
+        res.redirect("/account/signin");
+        return;
+    }
+
+    const result = await accountModel.watchlistDetails(req.session.authUser.account_id);
+
+    // console.log(result)
+
     res.render('vaccount/watchlist.hbs', {
-        details: result
+        details: result,
+        isEmpty: result.length === 0
     });
 })
 
@@ -80,6 +88,51 @@ router.get('/is-available', async function(req, res) {
     if (!email)
     return true;
     return false;
+})
+
+router.post('/watchlist/add', async function(req, res) {
+    // console.log(req.body);
+    accountModel.watchlistAdd({
+        account_id: req.session.authUser.account_id,
+        product_id: req.body.product_id
+    });
+    res.redirect(req.headers.referer);
+})
+
+router.post('/watchlist/remove', async function(req, res) {
+    // console.log(req.body);
+    accountModel.watchlistRemove({
+        account_id: req.session.authUser.account_id,
+        product_id: req.body.product_id
+    });
+    res.redirect(req.headers.referer);
+})
+
+router.get('/profile', async function(req, res) {
+    if (req.session.isAuthenticated === false) {
+        res.redirect('/');
+        return;
+    }
+
+    const user = req.session.authUser;
+
+    console.log(user);
+
+    if (user.role_id === 1) {
+        res.render('vaccount/bidder.hbs');
+        return;
+    }
+
+    if (user.role_id === 2) {
+        res.render('vaccount/seller.hbs', {
+
+        });
+        return;
+    }
+
+    res.render('vaccount/admin.hbs', {
+
+    });
 })
 
 module.exports = router;
