@@ -64,40 +64,60 @@
                                         class="fa fa-search"></i></div>
                             </span>
                             <input class="form-control mr-sm-2" style="border-radius: 0 100px 100px 0;"
-                                name="searchKeyword" type="text" placeholder="Search" aria-label="Search">
+                                name="searchKeyword" type="text" value="{{previousKeyword}}" placeholder="Search" aria-label="Search">
 
                         </div>
                     </form>
                 </li>
                 <form id="frmSignout" action="/account/signout" method="POST"></form>
                 {{#if isAuthenticated}}
-                <li class="nav-item d-none d-xl-inline-block">
-                    <a class="nav-link waves-effect waves-light rounded-pill btn-sm" href="/account/watchlist">
-                        <i class="fas fa-digital-tachograph"></i>
-                    </a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle waves-effect waves-light rounded-pill btn-sm  blue-gradient mt-1 pt-1 pb-1" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-user"></i> {{authUser.fullname}}</a>
-                    <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="/account/profile">Profile</a>
-                        <a class="dropdown-item" href="javascript: $('#frmSignout').submit()">Logout</a>
-                    </div>
-                </li>
+                    {{#if isBidder}}
+                        <li class="nav-item d-none d-xl-inline-block">
+                            <a class="nav-link waves-effect waves-light rounded-pill btn-sm" href="/account/vote">
+                                <i class="fas fa-chart-line"></i>
+                                <span>{{formatPercent voteRate}}</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item d-none d-xl-inline-block">
+                            <a class="nav-link waves-effect waves-light rounded-pill btn-sm" href="/account/won">
+                                <i class="fas fa-crown"></i>
+                            </a>
+                        </li>
+                        
+                        <li class="nav-item d-none d-xl-inline-block">
+                            <a class="nav-link waves-effect waves-light rounded-pill btn-sm" href="/account/bidding">
+                                <i class="fas fa-history"></i>
+                            </a>
+                        </li>
+                    {{/if}}
+                    <li class="nav-item d-none d-xl-inline-block">
+                        <a class="nav-link waves-effect waves-light rounded-pill btn-sm" href="/account/watchlist">
+                            <i class="fas fa-digital-tachograph"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle waves-effect waves-light rounded-pill btn-sm  blue-gradient mt-1 pt-1 pb-1" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-user"></i> {{authUser.fullname}}</a>
+                        <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="/account/profile">Profile</a>
+                            <a class="dropdown-item" href="javascript: $('#frmSignout').submit()">Logout</a>
+                        </div>
+                    </li>
 
                 {{else}}
-                <li class="nav-item d-none d-xl-inline-block">
-                    <a class="nav-link waves-effect waves-light rounded-pill btn-sm" href="/account/signin">
-                        <span><i class="fas fa-sign-in-alt" aria-hidden="true"></i> Sign in</span>
-                    </a>
-                </li>
-                <li class="nav-item d-none d-xl-inline-block">
-                    <a class="nav-link waves-effect waves-light rounded-pill btn-sm blue-gradient mt-1 pt-1 pb-1"
-                        href="/account/signup">
-                        <span><i class="fa fa-user-plus" aria-hidden="true"></i> Sign up</span>
-                    </a>
-                </li>
+                    <li class="nav-item d-none d-xl-inline-block">
+                        <a class="nav-link waves-effect waves-light rounded-pill btn-sm" href="/account/signin">
+                            <span><i class="fas fa-sign-in-alt" aria-hidden="true"></i> Sign in</span>
+                        </a>
+                    </li>
+                    <li class="nav-item d-none d-xl-inline-block">
+                        <a class="nav-link waves-effect waves-light rounded-pill btn-sm blue-gradient mt-1 pt-1 pb-1"
+                            href="/account/signup">
+                            <span><i class="fa fa-user-plus" aria-hidden="true"></i> Sign up</span>
+                        </a>
+                    </li>
                 {{/if}}
 
             </ul>

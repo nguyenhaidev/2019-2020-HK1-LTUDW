@@ -1,0 +1,32 @@
+<div class="p-5 w-75 mx-auto d-flex flex-column">
+    <h3>Vote rate: {{formatPercent vote_rate}}</h3>
+    <table class="table table-hover table-sm">
+        <thead>
+            {{!-- <tr>
+                <th class="w-25" scope="col"></th>
+                <th scope="col">Tên</th>
+                <th scope="col">Giá</th>
+            </tr> --}}
+        </thead>
+        <tbody>
+            {{#each details}}
+            <tr>
+                <th class="text-center" scope="row">
+                    <p class="">{{fullname}}</p>
+                </th>
+                <td class="mx-auto align-middle">
+                    
+                    <p class="">
+                        {{#if is_up_vote}}
+                            <i class="text-success fas fa-thumbs-up"></i>
+                        {{else}}
+                            <i class="text-danger fas fa-thumbs-down"></i>
+                        {{/if}}
+                        {{vote_point}}
+                    </p>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
