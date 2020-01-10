@@ -1,7 +1,68 @@
-<div class="container mt-3">
-    <div class="row">
-        <div class="col-md-3 col-sm-12">
-            <h3>Danh mục sản phẩm</h3>
+{{#section 'css'}}
+    <script src="https://cdn.ckeditor.com/4.8.0/full-all/ckeditor.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+{{/section}}
+
+{{#section 'js'}}
+    <script>
+        CKEDITOR.replace('editor', {
+        skin: 'moono',
+        enterMode: CKEDITOR.ENTER_BR,
+        shiftEnterMode:CKEDITOR.ENTER_P,
+        toolbar: [
+            { name: 'clipboard', items: [ 'Undo', 'Redo' ] },
+            { name: 'links', items: [ 'Link', 'Unlink'] },
+            { name: 'insert', items: [ 'Image', 'Table'] },
+            { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', '-', 'RemoveFormat' ] },
+            { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-'] },
+            { name: 'styles', items: [ 'Styles', 'Format' ] }]
+        });
+    </script>
+
+    <script>
+        $(document).ready(function(){
+        // convert selects already on the page at dom load
+            $('select.form-control').combobox();  
+    
+            $('#it').click(function(e){
+            $('ul.dropdown-menu').toggle();
+            });
+        });
+    </script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/js/fileinput.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/themes/fa/theme.min.js"></script>
+
+{{/section}}
+ 
+    <!-- ADMIN PAGE ---------------------------------------------------------------------------------->
+<div class="container">
+
+	<!-- Tab panel-------------------------------------------------------------------->
+	<ul class="nav nav-tabs" id="myTab" role="tablist" style="margin-bottom: 2.5rem">
+	  <li class="nav-item">
+	    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Sản phẩm</a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Thêm sản phẩm</a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Người mua</a>
+	  </li>
+	</ul>
+
+<div class="tab-content " id="myTabContent" > <!-------Tab content----------->
+	
+	<!-- First Tab: Home ------------------------------------------------------------------------------>
+	<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+	<div class = "d-flex justify-content-start" > <!-- flex box: separate into 2 block-->
+	
+	<div> <!--- left block------> 
+		<!-- Search form -->
+		<input class="form-control" style="margin-bottom: 1rem" type="text" placeholder="Search" aria-label="Search">
+		
+		<!--List of cards--->
+            <h5>Danh mục</h5>
             <form class="ml-3 mt-3">
                 <div class="custom-control custom-checkbox mb-2 ">
                     <input type="checkbox" class="custom-control-input" checked id="category_all">
@@ -15,19 +76,28 @@
                 {{/each}}
                 <button class="btn btn-success btn-sm">Lọc</button>
             </form>
-        </div>
-        <div class="col-md-9 col-sm-12 border-left container">
-            {{#if isEmpty}}
+	</div>
+
+	
+	 <!-- Right block--->
+	<div class ="flex-grow-1" style="margin-left: 3rem">
+		
+		<!--Table------------------------------------------------------------------------------>
+		<!--Table head-->
+		<div class="container">
+		{{#if isEmpty}}
             <h3>Không có sản phẩm!!!</h3>
             {{else}}
             <div class="d-flex justify-content-left mx-auto row ">
                 {{#each products}}
                 <div class="rounded-lg col-md-4 mb-5" style="font-size: 10pt;">
                     <div class="card bg-light mb-3" style="max-width: 18rem;">
-                        <div class="card-header">{{product_id}} </div>
+
+                        <div class="card-header">Mã sản phẩm: {{product_id}} </div>
                         <div class="card-body">
                             <h5 class="card-title">{{product_name}}</h5>
-                            <h6 class="card-title">{{formatPrice highest_price}}</h6>
+                            <h6 class="card-title">Giá cao nhất: {{formatPrice highest_price}}</h6>
+
                             <div class="d-flex justify-content-between">
                                 <button type="button" class="btn btn-primary btn-sm ">
                                     <i class="fa fa-eye"></i>
@@ -44,6 +114,216 @@
                 {{/each}}
             </div>
             {{/if}}
+
+		</div>
+		
+		<!-- Pagination--->
+		<nav aria-label="Page navigation example" style="margin-top: 2rem">
+		  <ul class="pagination justify-content-center">
+		    <li class="page-item disabled">
+		      <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+		    </li>
+		    <li class="page-item"><a class="page-link" href="#">1</a></li>
+		    <li class="page-item"><a class="page-link" href="#">2</a></li>
+		    <li class="page-item"><a class="page-link" href="#">3</a></li>
+		    <li class="page-item">
+		      <a class="page-link" href="#">Next</a>
+		    </li>
+		  </ul>
+		</nav>
+		</div>
+	  </div>
+	</div>
+
+	<!-- Second Tab: Manage categories ------------------------------------------------------------>
+	<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+	<div class = "d-flex justify-content-start" > <!-- Flex-->
+	
+	<div> <!-- Left block-->
+		<!-- Search form -->
+		<input class="form-control" style="margin-bottom: 1rem" type="text" placeholder="Search" aria-label="Search">
+        <button class="btn btn-success btn-sm">Tìm</button>
+	</div>
+
+	<!-- right block-->
+	  	<!-- Categories Setting -->
+	  	<div class ="flex-grow-1" style="margin-left: 3rem">
+	  <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-md-10 shadow bg-white rounded p-5">
+                <div class="text-center">
+                    <h3 class="mb-5 font-weight-bold">Thông tin sản phẩm</h3>
+                </div>
+                <form>
+                    <div class="form-group">
+                        <label>Tên sản phẩm</label>
+                        <input type="text" class="form-control" placeholder="Gucci tee">
+                    </div>
+
+                    <div class="form-group" id="mainCat">
+                        <select class="form-control">
+                            <option value="NULL">Danh mục</option>
+                            {{#each categories}}
+                            <option value={{category_title}}>{{category_title}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+
+                    <div class="form-group" id="subCat">
+                        <select class="form-control">
+                             <option value="NULL">Danh mục phụ</option>
+                            {{#each categories}}
+                            <option value={{category_title}}>{{Subcategory_title}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="strartPrice">Giá khởi điểm</label>
+                        <div class="input-group" id="strartPrice"> 
+                            <input type="text" class="form-control" aria-describedby="Start Price" placeholder="10000" min=0> 
+                            <div class="input-group-append">
+                                <div class="input-group-text">Đồng</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="buyNowPrice">Giá khởi điểm</label>
+                        <div class="input-group" id="buyNowPrice"> 
+                            <input type="text" class="form-control" aria-describedby="Buy Now Price" placeholder="1500000" min=0> 
+                            <div class="input-group-append">
+                                <div class="input-group-text">Đồng</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="buyStepPrice">Giá khởi điểm</label>
+                        <div class="input-group" id="buyStepPrice"> 
+                            <input type="text" class="form-control" aria-describedby="Step Price" placeholder="1500000" min=0> 
+                            <div class="input-group-append">
+                                <div class="input-group-text">Đồng</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="buynow">Giá mua ngay</label>
+                        <div class="input-group" id="buynow">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <input type="checkbox" class="checkbox">
+                                </div>
+                            </div> 
+                            <input type="text" class="form-control" aria-describedby="PriceStep" placeholder="1500000"> 
+                            <div class="input-group-append">
+                                <div class="input-group-text">Đồng</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="input-group">
+                               <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                 <input type="checkbox" class="checkbox">
+                                 </div>
+                             </div> 
+                            <input type="text" class="form-control" aria-describedby="PriceStep" placeholder="Tựu động gia hạn" disabled="true"> 
+                        </div>    
+                    </div>
+                    <div class="form-group">
+                        <label for="editor">Mô tả</label>
+                        <textarea id="editor"></textarea>    
+                    </div>
+
+                    <div class="form-group">
+                        <form method="POST" novalidate enctype="multipart/form-data">
+                            <div class="card shadow">
+                                <h5 class="card-header">
+                                Hình mô tả
+                                </h5>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <div class="">
+                                            <input id="fuMain" name="fuMain" type="file" multiple accept="image/x-png,image/gif,image/jpeg">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="form-group text-center">
+                        <button class="btn btn-success align-center ">
+                        Thêm sản phẩm
+                    </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
+
+
+
+	   </div>
+	</div>
+	</div>
+
+<!-- Third Tab: Manage users --------------------------------------------------------------------->	
+	<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+    	<div class = "d-flex justify-content-start" > <!-- Flex-->
+	
+	<div> <!-- Left block-->
+		<!-- Search form -->
+		<input class="form-control" style="margin-bottom: 1rem" type="text" placeholder="Search" aria-label="Search">
+        <button class="btn btn-success btn-sm">Tìm</button>
+	</div>
+
+	<!-- right block-->
+	  	<div class ="flex-grow-1" style="margin-left: 3rem">
+	<div class="container">
+        <div class="mb-3 rounded container">
+            <div class="row p-5 prd-att-background d-flex">
+                <h3 class="mb-4">Lịch sử đấu giá</h3>
+                <table class="table text-left prd-normal-text">
+                    <thead>
+                        <tr>
+                            <th class="w-20">Tên người dùng</th>
+                            <th class="w-20">Upvote</th>
+                            <th class="w-10">Downvote</th>
+                            <th class="w-10">+</th>
+                            <th class="w-10">-</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each wonAccount}}
+                        <tr>
+                            <td>{{fullname}}</td>
+                            <td>{{upvote}}</td>
+                            <td>{{ownvote}}</td>
+                            <td><button class="btn btn-sm btn-success">
+                                <i class="fas fa-thumbs-up"></i>
+                            </td>
+                            <td><button class="btn btn-sm btn-danger">
+                                <i class="fas fa-thumbs-down"></i>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+
+
+	   </div>
+	</div>
+	</div>
+
+
+</div>
 </div>

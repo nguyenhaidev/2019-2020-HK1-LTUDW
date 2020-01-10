@@ -236,8 +236,11 @@ router.get('/profile', async function (req, res) {
         const categories = await categoryModel.getAllCategories();
         const wonProducts = await productModel.getWonProduct();
 
+        const wonAccount = await accountModel.getAccountBySeller(user.account_id)
+
         res.render('vaccount/seller.hbs', {
-            products: wonProducts,
+            products: products,
+            wonAccount: wonAccount,
             categories: categories,
             isEmpty: products.length === 0,
             isSeller: user.role_id === 2
@@ -260,10 +263,10 @@ router.post("/profile", async function (req, res) {
         account_id: req.session.authUser.account_id
     });
 
+
     const sellerRequests = await accountModel.sellerRequests();
     const categories = await catModel.getAllCategories();
     const users = await accountModel.getAllUsers();
-
     res.render('vaccount/admin.hbs', {
         sellerRequests: sellerRequests,
         categories: categories,

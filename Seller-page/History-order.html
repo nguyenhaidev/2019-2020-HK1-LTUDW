@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CDTH - Online Auction Floor</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.10.1/css/mdb.min.css" rel="stylesheet">
+    <script src="https://cdn.ckeditor.com/4.8.0/full-all/ckeditor.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+    <!-- {{{_sections.css}}} -->
+</head>
+
+<body>
+
+    <!--Navbar-->
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark  special-color-dark">
+
+        <!-- Navbar brand -->
+        <a class="navbar-brand" href="/"><i class="fa fa-home" aria-hidden="true"></i> CDTH</a>
+
+        <!-- Collapse button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+            aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse" id="basicExampleNav">
+
+            <!-- Links -->
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Trang chủ
+                    </a>
+                </li>
+
+                <li class="nav-item ">
+                    <a class="nav-link" href="#">Quản Lý Sản phẩm
+                    <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Lịch sử 
+                    <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Thông tin</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Liên hệ</a>
+                </li>
+
+            </ul>
+            <!-- Links -->
+
+            <ul class="navbar-nav nav-flex-icons">
+                <form id="frmSignout" action="/account/signout" method="POST"></form>
+                {{#if isAuthenticated}}
+                <li class="nav-item d-none d-xl-inline-block mr-3">
+                    <a class="nav-link dropdown-toggle waves-effect waves-light rounded-pill btn-sm  blue-gradient mt-1 pt-1 pb-1"
+                        href="#">
+                        <span><i class="fa fa-plus" aria-hidden="true"></i> Thêm sản phẩm</span>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle waves-effect waves-light rounded-pill btn-sm  blue-gradient mt-1 pt-1 pb-1" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user"></i> {{authUser.fullname}}</a>
+                    <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="/">Profile</a>
+                        <a class="dropdown-item" href="javascript: $('#frmSignout').submit()">Logout</a>
+                    </div>
+                </li>
+
+                {{else}}
+                <li class="nav-item d-none d-xl-inline-block">
+                    <a class="nav-link waves-effect waves-light rounded-pill btn-sm" href="/account/signin">
+                        <span><i class="fas fa-sign-in-alt" aria-hidden="true"></i> Sign in</span>
+                    </a>
+                </li>
+                <li class="nav-item d-none d-xl-inline-block">
+                    <a class="nav-link waves-effect waves-light rounded-pill btn-sm blue-gradient mt-1 pt-1 pb-1"
+                        href="/account/signup">
+                        <span><i class="fa fa-user-plus" aria-hidden="true"></i> Sign up</span>
+                    </a>
+                </li>
+                {{/if}}
+
+            </ul>
+        </div>
+        <!-- Collapsible content -->
+
+    </nav>
+
+
+<!-- body -->
+<div class="w-100 h-100 p-5">
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-md-6 shadow bg-white rounded p-5">
+                <div class="text-center">
+                    <h3 class="mb-5 font-weight-bold">Thông tin sản phẩm</h3>
+                </div>
+                <form>
+                    <div class="form-group">
+                        <label>Tên sản phẩm</label>
+                        <input type="text" class="form-control" placeholder="Gucci tee">
+                    </div>
+
+                    <div class="form-group" id="mainCat">
+                        <select class="form-control">
+                            {{#each categories}}
+                            <option value="+47">{{category_title}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+
+                    <div class="form-group" id="subCat">
+                        <select class="form-control">
+                            {{#each categories}}
+                            <option value={{category_title}}>{{Subcategory_title}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Giá khởi điểm</label>
+                        <input type="text" class="form-control" placeholder="1000000">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Bước giá</label>
+                        <input type="text" class="form-control" placeholder="1000">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="buynow">Giá mua ngay</label>
+                        <div class="input-group" id="buynow">
+                            <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                    <input type="checkbox" class="checkbox">
+                                    </div>
+                                </div> 
+                            <input type="text" class="form-control" aria-describedby="PriceStep" placeholder="1500000"> 
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="input-group">
+                               <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                 <input type="checkbox" class="checkbox">
+                                 </div>
+                             </div> 
+                            <input type="text" class="form-control" aria-describedby="PriceStep" placeholder="Tựu động gia hạn" disabled="true"> 
+                        </div>    
+                    </div>
+                    <div class="form-group">
+                        <label for="editor">Mô tả</label>
+                        <textarea id="editor"></textarea>    
+                    </div>
+
+                    <div class="form-group">
+                        <form method="POST" novalidate enctype="multipart/form-data">
+                            <div class="card shadow">
+                                <h5 class="card-header">
+                                Hình mô tả
+                                </h5>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <div class="">
+                                            <input id="fuMain" name="fuMain" type="file" multiple accept="image/x-png,image/gif,image/jpeg">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="form-group text-center">
+                        <button class="btn btn-success align-center ">
+                        Thêm sản phẩm
+                    </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- End body -->
+
+
+    <script>
+        CKEDITOR.replace('editor', {
+        skin: 'moono',
+        enterMode: CKEDITOR.ENTER_BR,
+        shiftEnterMode:CKEDITOR.ENTER_P,
+        toolbar: [
+            { name: 'clipboard', items: [ 'Undo', 'Redo' ] },
+            { name: 'links', items: [ 'Link', 'Unlink'] },
+            { name: 'insert', items: [ 'Image', 'Table'] },
+            { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', '-', 'RemoveFormat' ] },
+            { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-'] },
+            { name: 'styles', items: [ 'Styles', 'Format' ] }]
+        });
+    </script>
+
+    <script>
+        $(document).ready(function(){
+        // convert selects already on the page at dom load
+            $('select.form-control').combobox();  
+    
+            $('#it').click(function(e){
+            $('ul.dropdown-menu').toggle();
+            });
+        });
+    </script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/js/fileinput.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/themes/fa/theme.min.js"></script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.10.1/js/mdb.min.js"></script>
+    <!-- {{{_sections.js}}} -->
+</body>
+
+</html>
