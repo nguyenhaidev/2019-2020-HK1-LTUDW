@@ -70,7 +70,7 @@ router.post('/purchase', async function(req, res) {
     const receiver = await mailModel.createReceiverInfo(
         req.session.authUser.email,
         "CTDH ONLINE AUTION FLOOR / Pruchase successfully",
-        "Thanks for purchase " + product.product_name 
+        "Thanks for purchase " + product.product_name
         );
     await mailModel.sendMail(receiver);
 })
