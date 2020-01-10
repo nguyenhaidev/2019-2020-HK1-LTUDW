@@ -54,7 +54,7 @@ router.post('/signup', async function (req, res) {
         downvote: 0
     }
     const ret = await accountModel.addAccount(entity);
-    res.render('/');
+    res.redirect('/');
 })
 
 router.post('/signout', async function (req, res) {

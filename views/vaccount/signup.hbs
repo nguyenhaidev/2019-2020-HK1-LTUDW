@@ -12,30 +12,39 @@
   });
 
   function validate() {
+    let validated = false;
+
     const captcha_res = grecaptcha.getResponse();
     if(captcha_res.length == 0)
     {
         alert('Captcha is required');
-        return false;
+        validated = false;
+        return;
     }
 
     const uname = $('#txtUname').val();
     $.getJSON(`/account/uname-is-available?uname=${uname}`, function (data) {
       if (data === false) {
         alert('Username is not available');
-        return false;
+        validated = false;
+      } else {
+        validated = true;
       }
-    })
+    });
+    if (validated == false) return; 
 
     const email = $('#txtEmail').val();
     $.getJSON(`/account/email-is-available?email=${email}`, function (data) {
       if (data === false) {
-          alert('Email is not available');
-          return false;
+        alert('Email is not available');
+        validated = false;
+      } else {
+        validated = true;
       }
-    })
+    });
+    if (validated == false) return;
 
-    //$('#frmSignUp').off('submit').submit();
+    $('#frmSignUp').off('submit').submit();
   }
 </script>
 {{/section}}
