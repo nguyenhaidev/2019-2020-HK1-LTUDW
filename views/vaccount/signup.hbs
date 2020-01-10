@@ -1,3 +1,54 @@
+{{#section 'css'}}
+<link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
+{{/section}}
+
+{{#section 'js'}}
+<script src='https://www.google.com/recaptcha/api.js'></script>
+<script>
+  $('#frmSignUp').submit(function (event) {
+    event.preventDefault();
+    validate();
+  });
+
+  function validate() {
+    let validated = false;
+
+    const captcha_res = grecaptcha.getResponse();
+    if(captcha_res.length == 0)
+    {
+        alert('Captcha is required');
+        validated = false;
+        return;
+    }
+
+    const uname = $('#txtUname').val();
+    $.getJSON(`/account/uname-is-available?uname=${uname}`, function (data) {
+      if (data === false) {
+        alert('Username is not available');
+        validated = false;
+      } else {
+        validated = true;
+      }
+    });
+    if (validated == false) return; 
+
+    const email = $('#txtEmail').val();
+    $.getJSON(`/account/email-is-available?email=${email}`, function (data) {
+      if (data === false) {
+        alert('Email is not available');
+        validated = false;
+      } else {
+        validated = true;
+      }
+    });
+    if (validated == false) return;
+
+    $('#frmSignUp').off('submit').submit();
+  }
+</script>
+{{/section}}
+
 <div class="w-100 h-100 p-5">
     <div class="container">
         <div class="row justify-content-md-center">
@@ -5,42 +56,55 @@
                 <div class="text-center">
                     <h3 class="mb-5 font-weight-bold">SIGN UP</h3>
                 </div>
-                <form>
+                <form method="POST" id="frmSignUp">
                     <div class="form-group">
-                        <label>First name</label>
-                        <input type="text" class="form-control" placeholder="John">
+                        <label>Fullname</label>
+                        <input type="text" class="form-control" id="txtFullname" name="fullname" placeholder="CDTH Online Auction Floor">
                     </div>
                     <div class="form-group">
-                        <label>Last name</label>
-                        <input type="text" class="form-control" placeholder="Smith">
+                        <label>Username</label>
+                        <input type="username" class="form-control" id="txtUname" name="uname" placeholder="cdth">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" class="form-control" id="txtPasswd" name="passwd" placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Confirm Password</label>
+                        <input type="password" class="form-control" id="txtCfrmPasswd" name="cfrmpasswd" placeholder="Password">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Email</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                        <input type="email" class="form-control" id="txtEmail" name="email" aria-describedby="emailHelp"
                             placeholder="email@auctionfloor.com">
                         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
                             else.</small>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                    </div>
-                    <div class="form-group">
                         <label>Address</label>
-                        <input type="text" class="form-control" id="fullname-textbox"
+                        <input type="text" class="form-control" id="txtAddr" name="address"
                             placeholder="227 Nguyen Van Cu, Quan 5, TPHCM">
+                        <input name="upvote" value="0" style="display: none;"/>
+                        <input name="downvote" value="0" style="display: none;"/>
                     </div>
+                    <div class="g-recaptcha" id="captcha" data-sitekey="6LfM4M0UAAAAADCfZH4d2BGW90dC_sQf7mh1K0yW"></div>
                     <div class="form-group text-center">
                         <small id="emailHelp" class="form-text text-muted">By clicking <strong>Join now</strong>,
                             you agree to Auction Floor's <br><strong>User Agreement</strong> & <strong>Privacy
                                 Policy</strong></small>
-                        <button type="button" class="btn btn-warning w-50 mt-2 rounded-pill">Join now</button>
+                        <button type="submit" class="btn btn-warning w-50 mt-2 rounded-pill">Join now</button>
                     </div>
                     <div class="form-group text-center">
                         <label>Already on Auction Floor? <a href="#">Sign in</a></label>
                     </div>
-                </form>
+                </form >
             </div>
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $("#firstname").click(function(){
+        var name = $("#firstname").val();
+        alert(name)});
+</script>

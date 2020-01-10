@@ -1,0 +1,118 @@
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-md-3 col-sm-12">
+            <h3>Danh mục sản phẩm</h3>
+            <form class="ml-3 mt-3">
+                {{#each categories}}
+                <div class="custom-control custom-checkbox mb-2">
+                    <input type="checkbox" class="custom-control-input" id="category_{{category_id}}"
+                        onclick="javascript: alert(45);">
+                    <label class="custom-control-label" for="category_{{category_id}}">{{category_title}}</label>
+                </div>
+                {{/each}}
+            </form>
+        </div>
+        <div class="col-md-9 col-sm-12 border-left container">
+            {{#if isEmpty}}
+            <h3>Không có sản phẩm!!!</h3>
+            {{else}}
+            <div class="d-flex justify-content-left mx-auto row">
+                {{#each products}}
+                <div class="col-md-4 mb-5 p-2">
+                    <div class="rounded-lg shadow" style="font-size: 10pt;">
+                        <a href="/product/{{product_id}}" style="text-decoration: none; color: inherit;">
+                            <div class="position-absolute d-flex pt-2 ml-2 justify-content-between">
+                                <div class="font-weight-bold text-black-50">
+                                    <p><i class="fa fa-gavel" aria-hidden="true"></i> {{offer_count}}</p>
+                                </div>
+                            </div>
+
+                            <img src="/public/upload/{{product_id}}/main.jpg" class="card-img-top height-auto"
+                                alt="{{product_name}}">
+                        </a>
+                        <div class="list-group">
+                            <div class="d-flex justify-content-between" style="padding-right:10px; padding-left:10px; ">
+                                <div>
+                                    <p style="margin-bottom: 0rem">Người đăng:</p>
+                                </div>
+                                <div>
+                                    <p class="text-primary" style="margin-bottom: 0rem;">
+                                        {{bidder_name}}</p>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between" style="padding-right:10px; padding-left:10px; ">
+                                <div>
+                                    <p style="margin-bottom: 0rem">Ngày đăng:</p>
+                                </div>
+                                <div>
+                                    <p class="text-secondary" style="margin-bottom: 0rem;">
+                                        {{formatDate start_date}}</p>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between" style="padding-right:10px; padding-left:10px; ">
+                                <div>
+                                    <p class="" style="margin-bottom: 0rem;">Giá:</p>
+                                </div>
+                                <div>
+                                    <p class="text-warning mb-0">{{formatPrice highest_price}}</p>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between" style="padding-right:10px; padding-left:10px; ">
+                                <div>
+                                    <p class="" style="margin-bottom: 0rem;">Giá mua ngay:</p>
+                                </div>
+                                <div>
+                                    <p class="text-warning mb-0">{{formatPrice purchase_price}}</p>
+                                </div>
+                            </div>
+
+                            <form id="frmWatchlist{{product_id}}" method="POST" action="/account/watchlist/add">
+                                <input class="d-none" name="product_id" value="{{product_id}}">
+                            </form>
+
+                            <div class="border-top d-flex mb-0">
+                                <p class="mb-0 font-weight-bold text-black-50"
+                                    style="height: 48px;font-size: 11pt; margin-left: 10px;">
+                                    {{product_name}}</p>
+                                <a class="mb-0 text-danger mt-1 ml-auto"
+                                    href="javascript: $('#frmWatchlist{{product_id}}').submit();">
+                                    <i class="fas fa-heart" style="margin-right: 10px;"></i>
+                                </a>
+                            </div>
+                            <h6 class="font-weight-bold text-center text-danger">{{formatEndDate won_bidder end_date}}
+                            </h6>
+                        </div>
+
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+            <nav>
+                <ul class="pagination">
+                    <li class="page-item {{#unless this.can_go_prev}}disabled{{/unless}}">
+                        <a class="page-link" href="?page={{prev_value}}" tabindex="-1" aria-disabled="true">
+                            <i class="fa fa-backward" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    {{#each this.page_items}}
+                    {{#if this.isActive}}
+                    <li class="page-item active" aria-current="page">
+                        <a class="page-link" href="javascript:;">{{value}} <span class="sr-only">(current)</span></a>
+                    </li>
+                    {{else}}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{value}}">{{value}}</a>
+                    </li>
+                    {{/if}}
+                    {{/each}}
+                    <li class="page-item {{#unless this.can_go_next}}disabled{{/unless}}">
+                        <a class="page-link" href="?page={{next_value}}">
+                            <i class="fa fa-forward" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            {{/if}}
+        </div>
+    </div>
+</div>

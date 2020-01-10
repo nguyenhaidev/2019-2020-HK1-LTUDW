@@ -1,0 +1,230 @@
+<!-- ADMIN PAGE ---------------------------------------------------------------------------------->
+<div class="container">
+
+	<!-- Tab panel-------------------------------------------------------------------->
+	<ul class="nav nav-tabs pt-2" id="myTab" role="tablist" style="margin-bottom: 2.5rem">
+		<li class="nav-item">
+			<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+				aria-selected="true">Home</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+				aria-selected="false">Manage Categories</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
+				aria-selected="false">Manage Users</a>
+		</li>
+	</ul>
+
+	<div class="tab-content " id="myTabContent">
+		<!-------Tab content----------->
+
+		<!-- First Tab: Home -->
+		<div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab"></div>
+
+		<!-- Second Tab: Manage categories-->
+		<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+			<div class="d-flex justify-content-start">
+				<!-- Flex-->
+				<div style="width:18rem">
+					<!-- Left block-->
+					<!-- Search form -->
+					<form action="/category/add" method="POST">
+						<input class="form-control" name="title" style="margin-bottom: 1rem" type="text"
+							placeholder="Title" aria-label="Title">
+
+						<!--button-->
+						<button type="submit" class="btn btn-primary btn-lg btn-block"
+							style="justify-content: flex-start;">
+							Add categories
+							<i class="fas fa-plus"></i>
+						</button>
+					</form>
+					<!-- cards-->
+				</div>
+
+				<!-- right block-->
+				<!-- Categories Setting -->
+				<div class="flex-grow-1" style="margin-left: 3rem">
+					<h2 style="margin-bottom: 2rem"> Categories Setting</h2>
+
+					<table class="table table-hover">
+						<thead class="thead-light">
+							<tr style="margin: 1rem">
+								<th scope="col"></th>
+								<th scope="col" style="padding-bottom: 1rem">Name</th>
+								<th scope="col" style="padding-bottom: 1rem">Products</th>
+								<th scope="col" style="padding-bottom: 1rem">Edit </th>
+								<th scope="col" style="padding-bottom: 1rem">Delete</th>
+
+							</tr>
+						</thead>
+						<tbody>
+							{{#each categories}}
+							<tr class="clickable" data-toggle="collapse" data-target="#group-of-rows-{{category_id}}"
+								aria-expanded="false" aria-controls="group-of-rows-{{category_id}}">
+								<!-- click to show children rows-->
+								<th scope="row">
+									<input type="checkbox" aria-label="Checkbox for following text input"></th>
+								<td><a class ="p-0"href="/category/{{category_id}}">{{category_title}}</a></td>
+								<td></td>
+								<td><a class="btn btn-lg z-depth-0 gb-transparent p-0" href="/category/edit/{{category_id}}" role="button">
+									<i class="fas fa-edit p-0"></i>
+								</a></td>
+								  <form id="frmDeleteCate{{category_id}}" method="POST" action="/category/delete/{{category_id}}">
+								  </form>
+								<td><a class="btn btn-lg z-depth-0 gb-transparent p-0" href="javascript: $('#frmDeleteCate{{category_id}}').submit()" role="button">
+            						<i class="fas fa-trash-alt p-0" aria-hidden="true"></i>
+        						</a></tr>
+							</tr>
+							{{/each}}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<!-- Third Tab: Manage users --------------------------------------------------------------------->
+		<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+
+			<!--Left column--------------------------------------------------------------------------->
+			<div class="row">
+				<div style="width:18rem">
+
+					<!--search bar-->
+					<input class="form-control" style="margin-bottom: 1rem" type="text" placeholder="Search"
+						aria-label="Search">
+
+					<!--add user button-->
+					<button type="button" class="btn btn-primary btn-lg btn-block"
+						style="justify-content: flex-start; ">
+						<a href="/account/signup"> Add user
+						<i class="fas fa-plus"></i>
+					</button>
+
+					<!--column tab panel-->
+					<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+						<a class="nav-link border active btn-light btn-lg " style="margin-top: 1rem"
+							id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab"
+							aria-controls="v-pills-home" aria-selected="true">
+							User</a>
+						<a class="nav-link border btn-light btn-lg" style="margin-top: 1rem" id="v-pills-profile-tab"
+							data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile"
+							aria-selected="false">
+							Upgrade requests</a>
+					</div>
+				</div>
+
+				<!--Right column--------------------------------------------------------------------------->
+				<div class="col ml-5">
+
+					<!-- Header-->
+					<h2 style="margin-bottom: 2rem"> Users Setting</h2>
+
+					<!--Tab content-->
+					<div class="tab-content" id="v-pills-tabContent">
+						<!--User tab content-->
+						<div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
+							aria-labelledby="v-pills-home-tab">
+
+							<table class="table table-hover">
+								<thead class="thead-light">
+									<tr style="margin: 1rem">
+										<th scope="col"></th>
+										<th scope="col">Name</th>
+										<th scope="col">Email</th>
+										<th scope="col">Type</th>
+										<th scope="col">Edit </th>
+										<th scope="col">Delete</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									{{#each getAllUsers}}
+
+									<tr>
+										<td scope="row">
+											<input type="checkbox" aria-label="Checkbox for following text input">
+										</td>
+										<td><a href="#">
+												<p>{{fullname}}</p>
+											</a></td>
+										<td>
+											<p>{{email}}</p>
+										</td>
+										<td>
+											<p>{{formatAccountType role_id}}</p>
+										</td>
+										<td><i class="fas fa-edit"></i></td>
+										<td><i class="fas fa-trash-alt" style="margin-left: 1rem"></i></td>
+									</tr>
+
+									{{/each}}
+
+								</tbody>
+							</table>
+
+						
+
+						</div>
+						<!--Upgrade request tab content-->
+						<div class="tab-pane fade" id="v-pills-profile" role="tabpanel"
+							aria-labelledby="v-pills-profile-tab">
+
+							<table class="table table-hover">
+								<thead class="thead-light">
+									<tr style="margin: 1rem">
+										<th scope="col" style="padding-bottom: 1rem"></th>
+										<th scope="col" style="padding-bottom: 1rem">Name</th>
+										<th scope="col" style="padding-bottom: 1rem">Detail</th>
+										<th scope="col" style="padding-bottom: 1rem">Type</th>
+										<th scope="col" style="padding-bottom: 1rem"></th>
+										<th scope="col" style="padding-bottom: 1rem"></th>
+
+									</tr>
+								</thead>
+								<tbody>
+									{{#each sellerRequests}}
+									<tr>
+										<td style="padding-top: 1.7rem" scope="row">
+											<input type="checkbox" aria-label="Checkbox for following text input">
+										</td>
+										<td style="padding-top: 1.7rem">
+											<a href="#">
+												<p>{{fullname}}</p>
+											</a>
+										</td>
+										<td style="padding-top: 1.7rem">{{formatDate request_date}}</a></td>
+										<td style="padding-top: 1.7rem">
+											<p>{{formatAccountType role_id}} </p>
+										</td>
+										<td>
+											<form id="acpRequest{{request_id}}" method="POST"
+												action="/account/update/{{account_id}}">
+												<button type="submit" formaction="/account/update/{{account_id}}"
+													class="btn btn-light z-depth-0 btn-sm">Accept</button>
+											</form>
+										</td>
+										<td>
+											<form id="denyRequest{{request_id}}" method="POST"
+												action="/account/deny/{{account_id}}">
+												<button type="submit" formaction="/account/deny/{{account_id}}"
+													class="btn btn-light z-depth-0 btn-sm">Deny</button>
+											</form>
+										</td>
+									</tr>
+									{{/each}}
+
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+
+</div>

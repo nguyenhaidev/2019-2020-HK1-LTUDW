@@ -1,5 +1,3 @@
-
-
 {{#section 'css'}}
     <script src="https://cdn.ckeditor.com/4.8.0/full-all/ckeditor.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
@@ -94,10 +92,12 @@
                 {{#each products}}
                 <div class="rounded-lg col-md-4 mb-5" style="font-size: 10pt;">
                     <div class="card bg-light mb-3" style="max-width: 18rem;">
+
                         <div class="card-header">Mã sản phẩm: {{product_id}} </div>
                         <div class="card-body">
                             <h5 class="card-title">{{product_name}}</h5>
                             <h6 class="card-title">Giá cao nhất: {{formatPrice highest_price}}</h6>
+
                             <div class="d-flex justify-content-between">
                                 <button type="button" class="btn btn-primary btn-sm ">
                                     <i class="fa fa-eye"></i>
@@ -114,6 +114,7 @@
                 {{/each}}
             </div>
             {{/if}}
+
 		</div>
 		
 		<!-- Pagination--->
@@ -325,5 +326,4 @@
 
 
 </div>
-
 </div>

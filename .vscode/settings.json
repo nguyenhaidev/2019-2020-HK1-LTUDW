@@ -1,0 +1,22 @@
+{
+    "sqltools.connections": [
+        {
+            "askForPassword": true,
+            "database": "cdth",
+            "dialect": "MySQL",
+            "name": "ltudw-cdth17",
+            "port": 3306,
+            "server": "localhost",
+            "username": "cdth"
+        },
+        {
+            "askForPassword": true,
+            "database": "cdth",
+            "dialect": "MySQL",
+            "name": "DB",
+            "port": 3306,
+            "server": "25.70.197.230",
+            "username": "cdth"
+        }
+    ]
+}
