@@ -1,6 +1,18 @@
 const db = require("../utils/db");
 
 module.exports = {
+    getWonProduct: _ => db.load(`
+        SELECT p.*
+        FROM af_product p
+        WHERE p.won_bidder != NULL
+    `),
+
+    getProductbySeller: user_id =>db.load(`
+        SELECT p.*
+        FROM af_product p
+        WHERE p.owner_id = ${user_id}
+    `),
+
     getProduct: id => db.load(`
         SELECT p.*, a.fullname AS bidder_name 
         FROM af_product p

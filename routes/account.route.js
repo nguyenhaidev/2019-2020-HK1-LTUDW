@@ -1,6 +1,9 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const accountModel = require('../models/account.model');
+const productModel = require('../models/product.model');
+const categoryModel = require('../models/category.model');
+const banModel = require('../models/baned.model')
 const config = require('../config/default.json');
 const router = express.Router();
 
@@ -124,8 +127,15 @@ router.get('/profile', async function(req, res) {
     }
 
     if (user.role_id === 2) {
-        res.render('vaccount/seller.hbs', {
+        const products = await productModel.getProductbySeller(user.account_id);
+        const categories = await categoryModel.getAllCategories();
+        const wonProducts = await productModel.getWonProduct();
 
+        res.render('vaccount/seller.hbs', {
+            products: wonProducts,
+            categories: categories,
+            isEmpty: products.length === 0,
+            isSeller: user.role_id === 2
         });
         return;
     }

@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const banModel = require('../models/baned.model')
 const productModel = require('../models/product.model');
 const catModel = require('../models/category.model');
 
@@ -19,11 +20,14 @@ router.get('/:id', async function(req, res) {
     const prows = await productModel.getProduct(req.params.id);
     const crows = await catModel.getCategory(prows[0].category_id);
     const history = await productModel.getHistory(req.params.id, 0);
-
+    const bans = await banModel.getBanedbyProductID(re)
+ 
     if (prows[0].won_bidder != null) {
         res.render('vproduct/finish.hbs');
         return;
     }
+
+    const user = req.session.authuss
 
     res.render('vproduct/detail.hbs', {
         product: prows[0],
@@ -47,7 +51,7 @@ router.post('/add', async function(req, res) {
 
 router.post('/purchase', async function(req, res) {
     console.log(req.body)
-
+    
     const entity = {
         account_id: 1,
         product_id: req.body.product_id
