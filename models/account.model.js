@@ -1,6 +1,12 @@
 const db = require("../utils/db");
 
 module.exports = {
+    getAccountBySeller: id => db.load(`
+        SELECT a.*
+        FROM af_product p, af_account a
+        WHERE p.owner_id = ${id} AND p.won_bidder = a.account_id
+    `),
+
     getAccountById: id => db.load(`
         SELECT * 
         FROM af_account
