@@ -260,19 +260,27 @@ router.post("/profile", async function (req, res) {
         account_id: req.session.authUser.account_id
     });
 
-    const rows = await accountModel.sellerRequests();
+    const sellerRequests = await accountModel.sellerRequests();
     const categories = await catModel.getAllCategories();
     const users = await accountModel.getAllUsers();
 
     res.render('vaccount/admin.hbs', {
-        sellerRequests: rows,
+        sellerRequests: sellerRequests,
         categories: categories,
         getAllUsers: users,
     });
-
     req.session.authUser.fullname = entity.fullname;
-
     res.redirect(req.headers.referer);
-});
+})
+
+router.post('/update/:account_id', async function(req, res) {
+    const rs = accountModel.acceptRequest(req.params.account_id);
+    res.redirect('/account/profile');
+})
+
+router.post('/deny/:account_id', async function(req, res) {
+    const rs = accountModel.denyRequest(req.params.account_id);
+    res.redirect('/account/profile');
+})
 
 module.exports = router;

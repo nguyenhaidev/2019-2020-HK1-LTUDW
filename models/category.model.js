@@ -8,5 +8,6 @@ module.exports = {
         JOIN af_product p ON p.category_id = c.category_id
         WHERE c.category_id = ${id}`),
     addCategory: entity => db.insert(entity, `af_category`), 
-    delCategory: id => db.delete({category_id: id}, 'af_category')
+    delCategory: id => db.delete({category_id: id}, 'af_category'),
+    updateCategory: (id, title) => db.updateEx({category_title: title}, `category_id = ${id}`, `af_category`)
 }
