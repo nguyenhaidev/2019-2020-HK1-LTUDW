@@ -63,7 +63,16 @@ router.post('/purchase', async function(req, res) {
         product_id: req.body.product_id
     };
     await productModel.purchase(entity);
-    res.redirect(`/product/${req.body.product_id}`)
+    res.redirect(`/product/${req.body.product_id}`);
+
+    const product = await productModel.getProduct(req.body.product_id);
+    console.log(product);
+    const receiver = await mailModel.createReceiverInfo(
+        req.session.authUser.email,
+        "CTDH ONLINE AUTION FLOOR / Pruchase successfully",
+        "Thanks for purchase " + product.product_name 
+        );
+    await mailModel.sendMail(receiver);
 })
 
 module.exports = router;
