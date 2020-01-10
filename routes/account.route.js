@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const accountModel = require('../models/account.model');
 const config = require('../config/default.json');
 const router = express.Router();
+const catModel = require('../models/category.model');
 
 router.get('/signin', function (req, res) {
     res.render('vaccount/signin.hbs');
@@ -72,8 +73,6 @@ router.get('/watchlist', async function(req, res) {
 
     const result = await accountModel.watchlistDetails(req.session.authUser.account_id);
 
-    // console.log(result);
-
     res.render('vaccount/watchlist.hbs', {
         details: result,
         isEmpty: result.length === 0
@@ -120,7 +119,7 @@ router.get('/profile', async function(req, res) {
 
     const user = req.session.authUser;
 
-    console.log(user);
+    //console.log(user);
 
     if (user.role_id === 1) {
         res.render('vaccount/bidder.hbs');
@@ -134,9 +133,14 @@ router.get('/profile', async function(req, res) {
         return;
     }
 
+    const rows = await accountModel.sellerRequests();
+    const categories = await catModel.getAllCategories();
+    const users = await accountModel.getAllUsers();
+    console.log(categories);
     res.render('vaccount/admin.hbs', {
-
+        sellerRequests: rows,
+        categories: categories,
+        getAllUsers: users,
     });
 })
-
 module.exports = router;
