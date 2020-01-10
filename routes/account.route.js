@@ -143,4 +143,15 @@ router.get('/profile', async function(req, res) {
         getAllUsers: users,
     });
 })
+
+router.post('/update/:account_id', async function(req, res) {
+    const rs = accountModel.acceptRequest(req.params.account_id);
+    res.redirect('/account/profile');
+})
+
+router.post('/deny/:account_id', async function(req, res) {
+    const rs = accountModel.denyRequest(req.params.account_id);
+    res.redirect('/account/profile');
+})
+
 module.exports = router;

@@ -221,11 +221,12 @@
 					<!-- Left block-->
 					<!-- Search form -->
 					<form action="/category/add" method="POST">
-						<input class="form-control" name="title" style="margin-bottom: 1rem" type="text" placeholder="Title"
-							aria-label="Title">
+						<input class="form-control" name="title" style="margin-bottom: 1rem" type="text"
+							placeholder="Title" aria-label="Title">
 
 						<!--button-->
-						<button type="submit" class="btn btn-primary btn-lg btn-block" style="justify-content: flex-start;">
+						<button type="submit" class="btn btn-primary btn-lg btn-block"
+							style="justify-content: flex-start;">
 							Add categories
 							<i class="fas fa-plus"></i>
 						</button>
@@ -274,14 +275,17 @@
 									<input type="checkbox" aria-label="Checkbox for following text input"></th>
 								<td><a href="/category/{{category_id}}">{{category_title}}</a></td>
 								<td>30</td>
-								<td><a class="btn btn-sm btn-primary" href="/category/edit/{{category_id}}" role="button">
-            						<i class="fa fa-pencil" aria-hidden="true"></i>
-          						</a></td>
-								  <form id="frmDeleteCate{{category_id}}" method="POST" action="/category/delete/{{category_id}}">
-								  </form>
-								<td><a class="btn btn-sm btn-danger" href="javascript: $('#frmDeleteCate{{category_id}}').submit()" role="button">
-            						<i class="fa fa-trash-o" aria-hidden="true"></i>
-        						</a></tr>
+								<td><a class="btn btn-sm btn-primary" href="/category/edit/{{category_id}}"
+										role="button">
+										<i class="fa fa-pencil" aria-hidden="true"></i>
+									</a></td>
+								<form id="frmDeleteCate{{category_id}}" method="POST"
+									action="/category/delete/{{category_id}}">
+								</form>
+								<td><a class="btn btn-sm btn-danger"
+										href="javascript: $('#frmDeleteCate{{category_id}}').submit()" role="button">
+										<i class="fa fa-trash-o" aria-hidden="true"></i>
+									</a></td>
 							</tr>
 							{{/each}}
 						</tbody>
@@ -436,17 +440,24 @@
 											<p>{{formatAccountType role_id}} </p>
 										</td>
 										<td>
-											<button type="button" class="btn btn-light z-depth-0 btn-sm">Accept</button>
+											<form id="acpRequest{{request_id}}" method="POST"
+												action="/account/update/{{account_id}}">
+												<button type="submit" formaction="/account/update/{{account_id}}"
+													class="btn btn-light z-depth-0 btn-sm">Accept</button>
+											</form>
 										</td>
 										<td>
-											<button type="button" class="btn btn-light z-depth-0 btn-sm">Deny</button>
+											<form id="denyRequest{{request_id}}" method="POST"
+												action="/account/deny/{{account_id}}">
+												<button type="submit" formaction="/account/deny/{{account_id}}"
+													class="btn btn-light z-depth-0 btn-sm">Deny</button>
+											</form>
 										</td>
 									</tr>
 									{{/each}}
 
 								</tbody>
 							</table>
-
 							<div>
 								<nav aria-label="Page navigation example" style="margin-top: 10rem">
 									<ul class="pagination justify-content-center">
