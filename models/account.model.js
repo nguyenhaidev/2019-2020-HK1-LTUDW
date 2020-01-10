@@ -16,6 +16,18 @@ module.exports = {
 
         return rows[0];
     },
+    getEmailByUsername: async uname => {
+        const rows = await db.load(`
+            SELECT email
+            FROM af_account
+            WHERE uname = '${uname}'
+        `)
+
+        if (rows.length === 0)
+        return null;
+        
+        return rows[0];
+    },
     authenticate: (uname, passwd) => db.load(`
         SELECT 1
         FROM af_account
@@ -51,5 +63,8 @@ module.exports = {
         FROM af_product ap
         JOIN af_account ac ON ac.account_id = ${id}
         WHERE ap.won_bidder = ${id}`),
-    requestSeller: id => db.callPro(`sp_new_request(${id})`)
+    requestSeller: id => db.callPro(`sp_new_request(${id})`),
+    getAllUsers: _ => db.load(`
+        SELECT *
+        FROM af_account`)
 }

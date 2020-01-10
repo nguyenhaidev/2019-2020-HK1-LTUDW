@@ -4,6 +4,7 @@ const productModel = require('../models/product.model');
 const catModel = require('../models/category.model');
 const config = require('../config/default.json');
 const moment = require('moment');
+const mailModel = require('../models/mail.model');
 
 console.log("routes/product.route");
 
@@ -75,7 +76,16 @@ router.post('/add', async function (req, res) {
     };
 
     await productModel.addHistory(entity);
-    res.redirect(`/product/${req.body.product_id}`)
+    res.redirect(`/product/${req.body.product_id}`);
+
+    const product = await productModel.getProduct(req.body.product_id);
+    console.log(product);
+    const receiver = await mailModel.createReceiverInfo(
+        req.session.authUser.email,
+        "CTDH ONLINE AUTION FLOOR / Successfully bidded",
+        "You have bidded " + product[0].product_name + " for " + req.body.price
+        );
+    await mailModel.sendMail(receiver);
 })
 
 router.post('/purchase', async function (req, res) {
@@ -86,7 +96,16 @@ router.post('/purchase', async function (req, res) {
         product_id: req.body.product_id
     };
     await productModel.purchase(entity);
-    res.redirect(`/product/${req.body.product_id}`)
+    res.redirect(`/product/${req.body.product_id}`);
+
+    const product = await productModel.getProduct(req.body.product_id);
+    console.log(product);
+    const receiver = await mailModel.createReceiverInfo(
+        req.session.authUser.email,
+        "CTDH ONLINE AUTION FLOOR / Pruchase successfully",
+        "Thanks for purchase " + product.product_name
+        );
+    await mailModel.sendMail(receiver);
 })
 
 module.exports = router;
