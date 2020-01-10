@@ -133,12 +133,12 @@ router.get('/profile', async function(req, res) {
         return;
     }
 
-    const rows = await accountModel.sellerRequests();
+    const sellerRequests = await accountModel.sellerRequests();
     const categories = await catModel.getAllCategories();
     const users = await accountModel.getAllUsers();
     console.log(categories);
     res.render('vaccount/admin.hbs', {
-        sellerRequests: rows,
+        sellerRequests: sellerRequests,
         categories: categories,
         getAllUsers: users,
     });

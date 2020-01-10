@@ -18,5 +18,6 @@ module.exports = {
     delete: (condition, table) => pool_query(`DELETE FROM ${table} WHERE ?`, condition),
     deleteEx: (conditionStr, table) => pool_query(`DELETE FROM ${table} WHERE ${conditionStr}`),
     update: (entity, condition, table) => pool_query(`UPDATE ${table} SET ? WHERE ?`, entity, condition),
+    updateEx: (entity, conditionStr, table) => pool_query(`UPDATE ${table} SET ? WHERE ${conditionStr}`, entity),
     callPro: (pname) => pool_query(`CALL ${pname}`)
 }
