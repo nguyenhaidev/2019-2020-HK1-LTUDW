@@ -31,11 +31,12 @@
 					<!-- Left block-->
 					<!-- Search form -->
 					<form action="/category/add" method="POST">
-						<input class="form-control" name="title" style="margin-bottom: 1rem" type="text" placeholder="Title"
-							aria-label="Title">
+						<input class="form-control" name="title" style="margin-bottom: 1rem" type="text"
+							placeholder="Title" aria-label="Title">
 
 						<!--button-->
-						<button type="submit" class="btn btn-primary btn-lg btn-block" style="justify-content: flex-start;">
+						<button type="submit" class="btn btn-primary btn-lg btn-block"
+							style="justify-content: flex-start;">
 							Add categories
 							<i class="fas fa-plus"></i>
 						</button>
@@ -199,18 +200,24 @@
 											<p>{{formatAccountType role_id}} </p>
 										</td>
 										<td>
-											<button type="button" class="btn btn-light z-depth-0 btn-sm">Accept</button>
+											<form id="acpRequest{{request_id}}" method="POST"
+												action="/account/update/{{account_id}}">
+												<button type="submit" formaction="/account/update/{{account_id}}"
+													class="btn btn-light z-depth-0 btn-sm">Accept</button>
+											</form>
 										</td>
 										<td>
-											<button type="button" class="btn btn-light z-depth-0 btn-sm">Deny</button>
+											<form id="denyRequest{{request_id}}" method="POST"
+												action="/account/deny/{{account_id}}">
+												<button type="submit" formaction="/account/deny/{{account_id}}"
+													class="btn btn-light z-depth-0 btn-sm">Deny</button>
+											</form>
 										</td>
 									</tr>
 									{{/each}}
 
 								</tbody>
 							</table>
-
-							
 						</div>
 					</div>
 				</div>

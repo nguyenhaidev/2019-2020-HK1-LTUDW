@@ -2,7 +2,7 @@
     {{#if isEmpty}}
     <h3>Không có sản phầm nào</h3>
     {{else}}
-    <h3>Sản phẩm đang theo dõi</h3>
+    <h3>{{text}}</h3>
     <table class="table table-hover">
         <thead>
             {{!-- <tr>
@@ -26,7 +26,6 @@
                     <a href="/product/{{product_id}}" style="text-decoration: none; color: inherit;">
                         <h4>{{product_name}}</h4>
                     </a>
-                    <a class="text-danger mr-2" href="javascript: $('#frmWatchlist{{product_id}}').submit();">Xóa</a>
                     <a href="#">{{fullname}}</a>
                 </td>
                 <td class="align-middle">

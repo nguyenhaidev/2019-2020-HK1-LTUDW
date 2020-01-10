@@ -8,7 +8,6 @@
 </script>
 {{/section}}
 
-
 <div>
     <div class="mt-5 pt-4">
         <div class="container prd-dark-grey-text">
@@ -38,9 +37,25 @@
                     </div>
                 </div>
                 <div class="col-md mb-4 text-left">
+                    <form id="frmUpVote" class="d-none" action="/account/vote/up" method="POST">
+                        <input name="account_id" value={{product.owner_id}}>
+                    </form>
+                    <form id="frmDownVote" class="d-none" action="/account/vote/down" method="POST">
+                        <input name="account_id" value={{product.owner_id}}>
+                    </form>
+
                     <div class="p-4">
-                        <h3>{{product.product_name}}</h3>
-                        {{!-- <a href="/product/{{product.product_id}}" class="mb-3">Mã sản phẩm: {{product.product_id}}</a> --}}
+                        <h3 class="mb-0">{{product.product_name}}</h3 c>
+                        <a class="ml-1 mt-0" style="font-size: 11pt;"
+                            href="/account/vote-history/{{product.owner_id}}">{{maskData product.bidder_name}}</a>
+                        <span>
+                            <a href="javascript: $('#frmUpVote').submit()" class="ml-2 mr-2 mt-0 text-success" style="font-size: 11pt;">
+                                <i class="fas fa-thumbs-up"></i>
+                            </a>
+                            <a href="javascript: $('#frmDownVote').submit()" class="ml-1 mt-0 text-danger" style="font-size: 11pt;">
+                                <i class="fas fa-thumbs-down"></i>
+                            </a>
+                        </span>
                         <div class="mb-3">
                             <a href="/">
                                 <span class="badge badge-pill badge-primary mr-1">{{category.category_title}}</span>
@@ -51,43 +66,138 @@
                             <a href="/">
                                 <span class="badge badge-pill badge-warning mr-1">Bán chạy</span>
                             </a>
+                            <p class="badge badge-pill badge-success float-right font-weight-bold"
+                                style="font-size: 15pt;">
+                                {{#if wasPurchased}}
+                                Đã bán
+                                {{else}}
+                                {{formatPrice product.purchase_price}}
+                                {{/if}}
+                                </span>
+                                <p class="badge badge-pill badge-danger mr-2 float-right font-weight-bold"
+                                    style="font-size: 15pt;">{{formatEndDate product.end_date}}</p>
                         </div>
                         <p class="font-weight-bold text-danger">
                             {{formatPrice product.highest_price}}</p>
-
                         <p class="mb-3 font-weight-bold prd-large-text">Mô tả:</p>
                         <p>{{product.tiny_desc}}</p>
 
-                        <form method="POST" action="">
+                        <form id="frmBid" class="w-75" method="POST" action="/product/add">
                             <div class="md-form">
                                 <input type="number" id="form1" name="price" class="form-control"
-                                    value="{{increasePrice product.highest_price}}">
+                                    {{#if wasPurchased}}disabled{{/if}} value="{{increasePrice product.highest_price}}">
                                 <label for="form1">Giá sẽ ra</label>
                             </div>
                             <input name="product_id" value="{{product.product_id}}" style="display: none;">
-                            <div class="d-flex justify-content-left">
-                                <button formaction="/product/add" type="submit" {{#if wasPurchased}}disabled{{/if}}
-                                    class="btn btn-sm btn-primary w-50 font-weight-bold" style="font-size: 12pt"><i
-                                        class="fa fa-gavel" aria-hidden="true"></i><span> Ra giá</span></button>
-                                <button formaction="/product/purchase" {{#if wasPurchased}}disabled{{/if}}
-                                    style="font-size: 12pt" class="btn btn-sm btn-success w-50 ">
-                                    <p class="m-0"><i class="fa fa-cart-plus" aria-hidden="true"></i><span> Mua
-                                            ngay</span></p>
-                                    <p class="m-0">{{formatPrice product.purchase_price}}</p>
-                                </button>
-                            </div class="d-flex justify-content-left">
                         </form>
+
+                        <form id="frmPurchase" class="w-75" method="POST" action="/product/purchase">
+                            <input name="product_id" value="{{product.product_id}}" style="display: none;">
+                        </form>
+
+                        <div class="d-flex justify-content-left w-75">
+                            <button {{#if wasPurchased}}disabled{{/if}}
+                                class="btn btn-sm rounded-pill btn-primary w-50 font-weight-bold" data-toggle="modal"
+                                data-target="#acceptModal" style="font-size: 12pt">
+                                <i class="fa fa-gavel" aria-hidden="true"></i>
+                                <span> Ra giá</span>
+                            </button>
+                            <button {{#if wasPurchased}}disabled{{/if}} data-target="#acceptPurchaseModal"
+                                data-toggle="modal" style="font-size: 12pt"
+                                class="btn rounded-pill btn-sm btn-success w-50 ">
+                                <p class="m-0"><i class="fa fa-cart-plus" aria-hidden="true"></i><span> Mua
+                                        ngay</span></p>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="container">
+            </hr>
+
+            <div class="mb-3 rounded container">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="history-tab" data-toggle="tab" href="#history" role="tab"
+                            aria-controls="history" aria-selected="true">Mô tả</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="descrition-tab" data-toggle="tab" href="#descrition" role="tab"
+                            aria-controls="descrition" aria-selected="false">Lịch sử đấu giá</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="history" role="tabpanel" aria-labelledby="history-tab">
+                        {{{product.description}}}
+                    </div>
+                    <div class="tab-pane fade" id="descrition" role="tabpanel" aria-labelledby="descrition-tab">
+                        <div class="row p-5 prd-att-background d-flex">
+                            <h3 class="mb-4">Lịch sử đấu giá</h3>
+                            <table class="table text-left prd-normal-text">
+                                <thead>
+                                    <tr>
+                                        <th class="w-25">Thời điểm</th>
+                                        <th class="w-25">Người đấu giá</th>
+                                        <th class="w-75">Số tiền</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each this.history}}
+                                    <tr>
+                                        <td>{{formatDate creation_date}}</td>
+                                        <td><a class="text-primary" href="/account/vote-history/{{account_id}}">{{maskData fullname}}</a></td>
+                                        <td>{{formatPrice price}}</td>
+                                    </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <hr class="container">
-        </hr>
+    </div>
+</div>
 
         <div class="mb-3 rounded container">
             <div class="row p-5 prd-att-background d-flex">
                 <h3 class="mb-4">Lịch sử đấu giá</h3>
+
+                {{#if isSeller}}
+                <table class="table text-left prd-normal-text">
+                    <thead>
+                        <tr>
+                            <th class="w-25">Thời điểm</th>
+                            <th class="w-25">Người đấu giá</th>
+                            <th class="w-75">Số tiền</th>
+                            <th class="w-25">Chặn</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each this.history}}
+                        <tr>
+                            <td>{{formatDate creation_date}}</td>
+                            <td>{{fullname}}</td>
+                            <td>{{formatPrice price}}</td>
+                            {{#if isBaned}}
+                            <td>
+                                <button class="btn btn-sm btn-danger">
+                                    <i class="fa fa-lock"></i>
+                                </button>
+                            </td>lock
+                            {{else}}
+                            <td>
+                                <button class="btn btn-sm btn-success">
+                                    <i class="fa fa-lock-open"></i>
+                                </button>
+                            </td>
+                            {{/if}}
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+                {{else}}
                 <table class="table text-left prd-normal-text">
                     <thead>
                         <tr>
@@ -106,8 +216,41 @@
                         {{/each}}
                     </tbody>
                 </table>
+                {{/if}}
+<div class="modal fade" id="acceptModal" tabindex="-1" role="dialog" aria-labelledby="acceptModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="acceptModalLabel">Chắc chứ?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" onclick="javascript: $('#frmBid').submit()">Đồng
+                    ý</button>
+            </div>
+        </div>
+    </div>
+</div>
 
+<div class="modal fade" id="acceptPurchaseModal" tabindex="-1" role="dialog" aria-labelledby="acceptPurchaseModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="acceptPurchaseModalLabel">Bạn có chắc muốn mua sản phẩm?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" onclick="javascript: $('#frmPurchase').submit()">Đồng
+                    ý</button>
+            </div>
         </div>
     </div>
 </div>
