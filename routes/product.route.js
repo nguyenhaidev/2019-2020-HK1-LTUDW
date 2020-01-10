@@ -5,15 +5,30 @@ const catModel = require('../models/category.model');
 
 console.log("routes/product.route");
 
+router.post('/search', async function(req, res) {
+    const products = await productModel.searchProduct(req.body.searchKeyword);
+    const categories = await catModel.getAllCategories();
+    res.render('vproduct/common.hbs', {
+        products: products[0],
+        categories: categories,
+        isEmpty: products[0].length === 0
+    });
+})
+
 router.get('/:id', async function(req, res) {
     const prows = await productModel.getProduct(req.params.id);
     const crows = await catModel.getCategory(prows[0].category_id);
-    const history = await productModel.getHistory(req.params.id);
-    // console.log(history)
+    const history = await productModel.getHistory(req.params.id, 0);
+
+    if (prows[0].won_bidder != null) {
+        res.render('vproduct/finish.hbs');
+        return;
+    }
+
     res.render('vproduct/detail.hbs', {
         product: prows[0],
         category: crows[0],
-        history: history
+        history: history[0]
     });
 });
 

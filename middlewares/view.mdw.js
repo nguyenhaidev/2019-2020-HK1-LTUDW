@@ -2,6 +2,7 @@ const exphbs = require('express-handlebars');
 const expsec = require('express-handlebars-sections');
 const numeral = require('numeral');
 const dateFormat = require('dateformat');
+const moment = require('moment');
 
 module.exports = function (app) {
     app.engine('hbs', exphbs({
@@ -18,10 +19,12 @@ module.exports = function (app) {
             formatPrice: val => `${numeral(val).format('0,0')}đ`,
             increasePrice: val => val + 1000,
             formatDate: val => dateFormat(val, "dd/mm/yyyy H:MM:ss"),
+
             formatAccountType: val => {
                 arr = ['Bidder', 'Seller', 'Administrator'];
                 return arr[val - 1];
             },
+
             formatEndDate: val => {
                 const time = moment(val);
                 const current = moment();

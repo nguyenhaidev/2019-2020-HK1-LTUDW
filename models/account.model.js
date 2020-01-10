@@ -15,7 +15,19 @@ module.exports = {
             return null;
 
         return rows[0];
-    } ,
+    },
+    getEmailByUsername: async uname => {
+        const rows = await db.load(`
+            SELECT email
+            FROM af_account
+            WHERE uname = '${uname}'
+        `)
+
+        if (rows.length === 0)
+        return null;
+        
+        return rows[0];
+    },
     authenticate: (uname, passwd) => db.load(`
         SELECT 1
         FROM af_account
@@ -43,5 +55,6 @@ module.exports = {
     getAllUsers: _ => db.load(`
         SELECT *
         FROM af_account
-        `)
+        `),
+    watchlistRemove: entity => db.deleteEx(`product_id = ${entity.product_id} AND account_id = ${entity.account_id}`, 'af_watchlist')
 }
